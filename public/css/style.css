@@ -140,7 +140,11 @@ section svg {
 }
 footer {
     background-color: rgba(221, 72, 20, .8);
+    position: fixed;
+    bottom: 0;
     text-align: center;
+    width: 100%;
+    
 }
 footer .environment {
     color: rgba(255, 255, 255, 1);

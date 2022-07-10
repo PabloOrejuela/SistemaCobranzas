@@ -5,6 +5,10 @@ namespace App\Controllers;
 class Home extends BaseController{
     
     public function index(){
-        return view('inicio');
+        
+        $data['title']='Lista de miembros';
+        $data['main_content']='login';
+        return view('includes/template', $data);
+    
     }
 }
