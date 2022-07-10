@@ -14,7 +14,7 @@
 
     <div class="heroe">
 
-        <h1>Sistema de cobranzas <?= CodeIgniter\CodeIgniter::CI_VERSION ?></h1>
+        <h1>Sistema de cobranzas ver. <?= $version; ?></h1>
         <h2>Algún subtitulo</h2>
     </div>
 </header>
