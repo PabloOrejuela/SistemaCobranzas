@@ -42,12 +42,12 @@ class Validation extends BaseConfig
     // Rules
     //--------------------------------------------------------------------
     public $login = [
-        'name'  => 'required',
+        'user'  => 'required',
         'password'   => 'required',
     ];
 
     public $login_errors = [
-        'name' => [
+        'user' => [
             'required' => 'El campo "Usuario" es obligatorio',
         ],
         'password' => [

@@ -14,7 +14,7 @@ class UsuarioModel extends Model{
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['logged'];
 
     // Dates
     protected $useTimestamps = false;
@@ -39,4 +39,34 @@ class UsuarioModel extends Model{
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+
+    function _verifica($usuario){
+        $result = 0;
+        $builder = $this->db->table('usuarios');
+        $builder->select('idusuario')->where('cedula', $usuario['user'])->where('password', $usuario['password']);
+        $query = $builder->get();
+        if ($query->getResult() != null && $query->getNumRows() == 1) {
+            foreach ($query->getResult() as $row) {
+                $result = $row->idusuario;
+            }
+        }
+        //echo $this->db->getLastQuery();
+        return $result;
+    }
+
+    function _getUsuario($idusuario){
+        $result = NULL;
+        $builder = $this->db->table('usuarios');
+        $builder->select('*')->where('idusuario', $idusuario);
+        $builder->join('rol', 'rol.idrol=usuarios.idrol');
+        $query = $builder->get();
+        if ($query->getResult() != null) {
+            foreach ($query->getResult() as $row) {
+                $result = $row;
+            }
+        }
+        //echo $this->db->getLastQuery();
+        return $result;
+    }
 }

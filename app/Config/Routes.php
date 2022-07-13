@@ -37,6 +37,7 @@ $routes->setAutoRoute(false);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->post('/validate_credentials', 'Home::validate_credentials');
+$routes->get('/inicio', 'Home::inicio');
 
 $routes->get('/cartera', 'Cartera::index');
 

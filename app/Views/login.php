@@ -9,11 +9,11 @@
                     <form action="<?php echo base_url().'/validate_credentials';?>" method="post">
                         <?= csrf_field(); ?>
                         <div class="mb-3 row">
-                            <label for="name" class="col-sm-3 mr-10 col-form-label" id="label-login">Usuario:</label>
+                            <label for="user" class="col-sm-3 mr-10 col-form-label" id="label-login">Usuario:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="form-control" name="name" placeholder="usuario">
+                                <input type="text" class="form-control" id="form-control" name="user" placeholder="usuario">
                             </div>
-                            <p id="error-message"><?= session('errors.name');?> </p>
+                            <p id="error-message"><?= session('errors.user');?> </p>
                         </div>
                         <div class="mb-3 row">
                             <label for="password" class="col-sm-3 mr-10 col-form-label" id="label-login" >Contraseña:</label>
@@ -26,6 +26,13 @@
                             <button type="submit" class="btn btn-secondary" value="Enviar" id="btn-login">Enviar</button>
                         </div>
                     </form>
+                    <p>
+                        <?php 
+                            if ($mensaje == 0) {
+                                echo 'El usuario no tiene acceso';
+                            }
+                        ?>
+                     </p>
                 </div>
             </div>
         </div>
