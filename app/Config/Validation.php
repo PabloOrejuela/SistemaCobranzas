@@ -48,10 +48,10 @@ class Validation extends BaseConfig
 
     public $login_errors = [
         'name' => [
-            'required' => 'El campo {field} es obligatorio',
+            'required' => 'El campo "Usuario" es obligatorio',
         ],
         'password' => [
-            'required' => 'El campo {field} es obligatorio',
+            'required' => 'El campo "Contraseña" es obligatorio',
         ]
     ];
 }

@@ -20,9 +20,16 @@ class Home extends BaseController{
         );
         $this->validation->setRuleGroup('login');
         
-        echo '<pre>'.var_export($data, true).'</pre>';
-        exit;
-        
+        if (!$this->validation->withRequest($this->request)->run()) {
+            //Depuración
+            //dd($validation->getErrors());
+            return redirect()->back()->withInput()->with('errors', $this->validation->getErrors());
+        }else{ 
+
+            $usuario = $this->usuarioModel->find($data);
+            echo '<pre>'.var_export($usuario, true).'</pre>';
+            return redirect()->to('/inicio');
+        }
         
     }
 }

@@ -53,7 +53,7 @@ abstract class BaseController extends Controller
 
         // Preload any models, libraries, etc, here.
         $this->db = \Config\Database::connect();
-        $this->usuariosModel = new UsuarioModel($this->db);
+        $this->usuarioModel = new UsuarioModel($this->db);
 
         // E.g.: $this->session = \Config\Services::session();
         $this->session = \Config\Services::session();
