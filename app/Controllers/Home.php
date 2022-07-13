@@ -4,9 +4,9 @@ namespace App\Controllers;
 
 class Home extends BaseController{
     
-    public function index($mensaje = ''){
-        $data['mensaje'] = $mensaje;
-        //echo '<pre>'.var_export($usuario, true).'</pre>';exit;
+    public function index($message = NULL){
+        $data['mensaje'] = $this->request->getPostGet('message');
+        
         $data['version'] = $this->system_version;
         $data['title']='Acceso al sistema:';
         $data['main_content']='login';
@@ -45,7 +45,8 @@ class Home extends BaseController{
 
                 return redirect()->to('/inicio');
             }else{
-                return redirect()->to('/', 0);
+                return redirect()->back()->with('foo', 'message');
+                //return redirect()->to('/');
             }
         }
         

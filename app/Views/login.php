@@ -3,8 +3,8 @@
         <div class="row g-2">
             <div class="col-12 mt-5">
                 <div class="p-3 border bg-light" id="form-login">
-                <?= session()->getFlashdata('error') ?>
-                    <h4><?= esc($title) ?></h4>
+                <?= session()->getFlashdata('error'); ?>
+                    <h4><?= esc($title); ?></h4>
                     
                     <form action="<?php echo base_url().'/validate_credentials';?>" method="post">
                         <?= csrf_field(); ?>
@@ -26,13 +26,7 @@
                             <button type="submit" class="btn btn-secondary" value="Enviar" id="btn-login">Enviar</button>
                         </div>
                     </form>
-                    <p>
-                        <?php 
-                            if ($mensaje == 0) {
-                                echo 'El usuario no tiene acceso';
-                            }
-                        ?>
-                     </p>
+                    <p></p>
                 </div>
             </div>
         </div>
