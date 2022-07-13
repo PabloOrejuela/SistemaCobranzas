@@ -6,8 +6,8 @@
                     <img height="44" title="CodeIgniter Logo" alt="Sistema de cobranzas" src="<?php echo site_url(); ?>public/img/cashier.svg">
                 </a>
             </li>
-            <li class="menu-item hidden"><a href="#">Inicio</a></li>
-            <li class="menu-item hidden"><a href="#" target="_self">Cartera</a></li>
+            <li class="menu-item hidden"><a href="<?php echo base_url();?>">Inicio</a></li>
+            <li class="menu-item hidden"><a href="<?php echo base_url().'/cartera';?>" target="_self">Cartera</a></li>
             <li class="menu-item hidden"><a href="#" target="_self">Cobros</a></li>
         </ul>
     </div>
