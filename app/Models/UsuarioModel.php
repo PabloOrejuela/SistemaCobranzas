@@ -55,10 +55,10 @@ class UsuarioModel extends Model{
         return $result;
     }
 
-    function _getUsuario($idusuario){
+    function _getUsuario($usuario){
         $result = NULL;
         $builder = $this->db->table('usuarios');
-        $builder->select('*')->where('idusuario', $idusuario);
+        $builder->select('*')->where('cedula', $usuario['user'])->where('password', $usuario['password']);
         $builder->join('rol', 'rol.idrol=usuarios.idrol');
         $query = $builder->get();
         if ($query->getResult() != null) {

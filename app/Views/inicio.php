@@ -1,2 +1,4 @@
-<h4>Inicio view</h4>
-<?= esc($idusuario); ?>
+<div class="container" >
+    <h4>Inicio</h4>
+    
+</div>

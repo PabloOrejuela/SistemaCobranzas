@@ -6,7 +6,7 @@ class Home extends BaseController{
     
     public function index($message = NULL){
         $data['mensaje'] = $this->request->getPostGet('message');
-        
+
         $data['version'] = $this->system_version;
         $data['title']='Acceso al sistema:';
         $data['main_content']='login';
@@ -28,25 +28,32 @@ class Home extends BaseController{
             return redirect()->back()->withInput()->with('errors', $this->validation->getErrors());
         }else{ 
 
-            $usuario = $this->usuarioModel->_verifica($data);
-            if ($usuario != 0) {
+            $usuario = $this->usuarioModel->_getUsuario($data);
+
+            if (isset($usuario) && $usuario != NULL) {
                 //valido el login y pongo el id en sesion
+                //echo '<pre>'.var_export($usuario, true).'</pre>';
                 $sessiondata = [
                     'logged_in' => 1,
+                    'idusuario' => $usuario->idusuario,
+                    'idrol' => $usuario->idrol,
+                    'rol' => $usuario->rol,
+                    'administracion' => $usuario->administracion,
+                    'cobros' => $usuario->cobros,
+                    'reportes' => $usuario->reportes
                 ];
 
                 $user = [
                     'logged' => 1
                 ];
                 
-                $this->usuarioModel->update($usuario, $user);
-
+                $this->usuarioModel->update($usuario->idusuario, $user);
                 $this->session->set($sessiondata);
 
                 return redirect()->to('/inicio');
             }else{
-                return redirect()->back()->with('foo', 'message');
-                //return redirect()->to('/');
+
+                return redirect()->to('/');
             }
         }
         
@@ -54,7 +61,7 @@ class Home extends BaseController{
 
     public function inicio(){
 
-        $data['idusuario'] = $this->session->idusuario;
+        $data['idrol'] = $this->session->idrol;
 
         $data['version'] = $this->system_version;
         $data['title']='Inicio';
