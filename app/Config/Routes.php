@@ -41,6 +41,7 @@ $routes->get('/inicio', 'Home::inicio');
 $routes->get('/salir', 'Home::salir');
 
 $routes->get('/cartera', 'Cartera::index');
+$routes->post('/getExcel', 'Cartera::getExcel');
 
 $routes->get('/usuarios', 'Usuario::index');
 
