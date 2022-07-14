@@ -62,10 +62,33 @@ class Home extends BaseController{
     public function inicio(){
 
         $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        if ($data['logged_in'] == 1) {
+            $data['version'] = $this->system_version;
+            $data['title']='Inicio';
+            $data['main_content']='inicio';
+            return view('includes/template', $data);
+        }else{
+            $this->session->destroy();
+            $user = [
+                'logged' => 0
+            ];
+            
+            $this->usuarioModel->update($data['idusuario'], $user);
+            return redirect()->to('/');
+        }
+    }
 
-        $data['version'] = $this->system_version;
-        $data['title']='Inicio';
-        $data['main_content']='inicio';
-        return view('includes/template', $data);
+    public function salir(){
+        //destruyo la session  y salgo
+        $idusuario = $this->session->idusuario;
+        $user = [
+            'logged' => 0
+        ];
+        
+        $this->usuarioModel->update($idusuario, $user);
+        $this->session->destroy();
+        return redirect()->to('/');
     }
 }

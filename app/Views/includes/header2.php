@@ -12,12 +12,13 @@
                 if ($idrol <= 2) {
                     echo '<li class="menu-item hidden"><a href="'. base_url().'/inicio">Inicio</a></li>
                             <li class="menu-item hidden"><a href="'.base_url().'/cartera" target="_self">Cartera</a></li>
+                            <li class="menu-item hidden"><a href="'.base_url().'/usuarios" target="_self">Usuarios</a></li>
                             <li class="menu-item hidden"><a href="'. base_url().'/cobros" target="_self">Cobros</a></li>
-                            <li class="menu-item hidden"><a href="'. base_url().'/" target="_self">Salir</a></li>';
+                            <li class="menu-item hidden"><a href="'. base_url().'/salir" target="_self">Salir</a></li>';
                 } elseif ($idrol == 3) {
                     echo '<li class="menu-item hidden"><a href="'. base_url().'/inicio">Inicio</a></li>
                             <li class="menu-item hidden"><a href="#" target="_self">Cobros</a></li>
-                            <li class="menu-item hidden"><a href="'. base_url().'/" target="_self">Salir</a></li>';
+                            <li class="menu-item hidden"><a href="'. base_url().'/salir" target="_self">Salir</a></li>';
                 }
             ?>
             

@@ -38,8 +38,13 @@ $routes->setAutoRoute(false);
 $routes->get('/', 'Home::index');
 $routes->post('/validate_credentials', 'Home::validate_credentials');
 $routes->get('/inicio', 'Home::inicio');
+$routes->get('/salir', 'Home::salir');
 
 $routes->get('/cartera', 'Cartera::index');
+
+$routes->get('/usuarios', 'Usuario::index');
+
+$routes->get('/cobros', 'Pago::index');
 
 /*
  * --------------------------------------------------------------------
