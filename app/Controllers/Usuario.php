@@ -11,6 +11,7 @@ class Usuario extends BaseController {
         $data['idrol'] = $this->session->idrol;
         $data['idusuario'] = $this->session->idusuario;
         $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
         if ($data['logged_in'] == 1) {
 
             $data['lista_usuarios'] = $this->usuarioModel->findAll();
@@ -35,6 +36,7 @@ class Usuario extends BaseController {
         $data['idrol'] = $this->session->idrol;
         $data['idusuario'] = $this->session->idusuario;
         $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
         if ($data['logged_in'] == 1) {
 
 
@@ -52,6 +54,7 @@ class Usuario extends BaseController {
         $data['idrol'] = $this->session->idrol;
         $data['idusuario'] = $this->session->idusuario;
         $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
         if ($data['logged_in'] == 1) {
 
             $data = array(
@@ -72,6 +75,13 @@ class Usuario extends BaseController {
             }else{ 
                 //echo '<pre>'.var_export($data, true).'</pre>';exit;
                 $this->usuarioModel->save($data);
+                $lastId = $this->db->insertID();
+
+                $user = [
+                    'password' => md5($data['cedula'])
+                ];
+                
+                $this->usuarioModel->update($lastId, $user);
                 
                 return redirect()->to('/usuarios');
             }  

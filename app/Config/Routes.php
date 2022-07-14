@@ -49,6 +49,8 @@ $routes->post('/recibe_nuevo_usuario', 'Usuario::recibe_nuevo_usuario');
 
 $routes->get('/cobros', 'Pago::index');
 
+$routes->get('/reportes', 'Reportes::index');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

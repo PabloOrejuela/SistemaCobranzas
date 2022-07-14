@@ -58,7 +58,7 @@ class UsuarioModel extends Model{
     function _getUsuario($usuario){
         $result = NULL;
         $builder = $this->db->table('usuarios');
-        $builder->select('*')->where('cedula', $usuario['user'])->where('password', $usuario['password']);
+        $builder->select('*')->where('cedula', $usuario['user'])->where('password', md5($usuario['password']));
         $builder->join('rol', 'rol.idrol=usuarios.idrol');
         $query = $builder->get();
         if ($query->getResult() != null) {
@@ -66,7 +66,7 @@ class UsuarioModel extends Model{
                 $result = $row;
             }
         }
-        //echo $this->db->getLastQuery();
+        echo $this->db->getLastQuery();
         return $result;
     }
 }

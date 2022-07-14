@@ -31,7 +31,7 @@ abstract class BaseController extends Controller
      */
     protected $request;
     protected $CI_VERSION = \CodeIgniter\CodeIgniter::CI_VERSION;
-    public $system_version = "0.3";
+    public $system_version = "1.0";
     public $session = null;
 
     /**

@@ -10,6 +10,7 @@ class Pago extends BaseController{
         $data['idrol'] = $this->session->idrol;
         $data['idusuario'] = $this->session->idusuario;
         $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
         if ($data['logged_in'] == 1) {
             $data['version'] = $this->system_version;
             $data['title']='Cobros';

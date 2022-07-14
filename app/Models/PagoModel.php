@@ -4,8 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PagoModel extends Model
-{
+class PagoModel extends Model {
     protected $DBGroup          = 'default';
     protected $table            = 'pagos';
     protected $primaryKey       = 'id';
