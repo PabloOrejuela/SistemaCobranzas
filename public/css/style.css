@@ -212,15 +212,31 @@ footer .copyrights {
 }
 
 #error-message{
-    margin-top: 5px;
+    font-size: 0.7rem;
+    margin-top: 0px;
     color: red;
 }
 
 #table-cartera{
     margin-top: 300px;
     margin-left: 0%;
+    font-size: 0.7rem;
+}
+
+#table-usuarios{
+    margin-top: 300px;
+    margin-left: 0%;
+    font-size: 0.7rem;
 }
 
 .container{
     left: 10px;
+}
+
+#form-subir-excel{
+    font-size: 0.7rem;
+}
+
+#formFile{
+    font-size: 0.7rem;
 }

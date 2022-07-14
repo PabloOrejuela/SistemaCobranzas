@@ -10,7 +10,7 @@ class Cartera extends BaseController{
         $data['idrol'] = $this->session->idrol;
         $data['idusuario'] = $this->session->idusuario;
         $data['logged_in'] = $this->session->logged_in;
-        echo $data['logged_in'];
+
         if ($data['logged_in'] == 1) {
             $data['version'] = $this->system_version;
             $data['title']='Cartera';

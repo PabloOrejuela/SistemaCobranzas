@@ -44,6 +44,8 @@ $routes->get('/cartera', 'Cartera::index');
 $routes->post('/getExcel', 'Cartera::getExcel');
 
 $routes->get('/usuarios', 'Usuario::index');
+$routes->get('/nuevo_usuario', 'Usuario::nuevo_usuario');
+$routes->post('/recibe_nuevo_usuario', 'Usuario::recibe_nuevo_usuario');
 
 $routes->get('/cobros', 'Pago::index');
 

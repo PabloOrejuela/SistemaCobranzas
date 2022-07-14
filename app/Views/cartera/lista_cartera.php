@@ -1,13 +1,13 @@
 <div class="container mb-5">
-    <form action="<?php echo base_url().'/getExcel';?>" method="post">
+    <form action="<?php echo base_url().'/getExcel';?>" method="post" id="form-subir-excel">
         <?= csrf_field(); ?>
         <div class="container mb-5" style="margin-top:30px;">
-            <div class="col-4 mb-3">
+            <div class="col-sm-5 mb-3">
                 <h5>Subir archivo de cartera (.xls)</h5>
-                <input type="file" value="Subir archivo excel">
+                <input class="form-control form-control-sm" type="file" id="formFile" value="Subir archivo excel">
             </div>
             <div>
-                <input type="submit" class="btn btn-secondary" value="Subir archivo">
+                <input type="submit" class="btn btn-outline-secondary" value="Subir archivo">
             </div>
         </div>
     </form>
