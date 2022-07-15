@@ -10,7 +10,8 @@
             <?php
             
                 if ($idrol <= 2) {
-                    echo '<li class="menu-item"><a href="'. base_url().'/inicio">Inicio</a></li>
+                    //echo '<li class="menu-item"><a href="'. base_url().'/inicio">Inicio</a></li>'
+                    echo '       
                             <li class="menu-item"><a href="'.base_url().'/cartera" target="_self">Cartera</a></li>
                             <li class="menu-item"><a href="'.base_url().'/usuarios" target="_self">Usuarios</a></li>
                             <li class="menu-item"><a href="'. base_url().'/cobros" target="_self">Cobros</a></li>

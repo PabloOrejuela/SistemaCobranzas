@@ -51,7 +51,7 @@ class Home extends BaseController{
                 $this->usuarioModel->update($usuario->idusuario, $user);
                 $this->session->set($sessiondata);
 
-                return redirect()->to('/inicio');
+                return redirect()->to('/cartera');
             }else{
 
                 return redirect()->to('/');

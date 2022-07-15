@@ -1,4 +1,4 @@
-<div class="container mb-5">
+<div class="container" id="div-cartera">
     <form action="<?php echo base_url().'/getExcel';?>" method="post" id="form-subir-excel" enctype="multipart/form-data">
         <?= csrf_field(); ?>
         <div class="container mb-5" style="margin-top:30px;">
@@ -62,7 +62,7 @@
 <script>
     $('#table-cartera').DataTable( {
         paging: true ,
-        "lengthMenu": [ 5, 10, 15 ],
+        "lengthMenu": [ 3, 5, 10, 15 ],
         language: {
             processing:     "Procesamiento en curso...",
             search:         "Buscar:",

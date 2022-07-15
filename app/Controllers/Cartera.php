@@ -89,9 +89,8 @@ class Cartera extends BaseController{
                     $this->carteraModel->save($registro);
                     //echo '<pre>'.var_export($cliente, true).'</pre>';
                 }
-                return redirect()->to('/cartera');
             }       
-
+            return redirect()->to('/cartera');
         }else{
             $this->logout();
         }

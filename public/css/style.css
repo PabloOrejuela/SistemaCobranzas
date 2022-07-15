@@ -152,21 +152,24 @@ section svg {
 }
 footer {
     background-color: rgba(221, 72, 20, .8);
-    position: fixed;
-    bottom: 0;
+    position:absolute;
+    margin-top: 50px;;
+    bottom: 0px;
     text-align: center;
     width: 100%;
     
 }
 footer .environment {
     color: rgba(255, 255, 255, 1);
-    padding: 2rem 1.75rem;
+    padding: 0.5rem 1.75rem;
 }
+
 footer .copyrights {
     background-color: rgba(62, 62, 62, 1);
     color: rgba(200, 200, 200, 1);
-    padding: .25rem 1.75rem;
+    padding: .20rem 1rem;
 }
+
 @media (max-width: 629px) {
     header ul {
         padding: 0;
@@ -231,6 +234,7 @@ footer .copyrights {
 
 .container{
     left: 10px;
+    height: max-content;
 }
 
 #form-subir-excel{
@@ -239,4 +243,8 @@ footer .copyrights {
 
 #formFile{
     font-size: 0.7rem;
+}
+
+#div-cartera{
+    margin-bottom: 200px;
 }
