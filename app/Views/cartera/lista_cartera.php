@@ -6,6 +6,7 @@
                 <h5>Subir archivo de cartera (.xls)</h5>
                 <input class="form-control form-control-sm" type="file" name="tablaCartera" id="formFile" value="Subir archivo excel">
             </div>
+            <p id="error-message"><?= session('errors.tablaCartera');?> </p>
             <div>
                 <input type="submit" class="btn btn-outline-secondary" value="Subir archivo">
             </div>
@@ -33,28 +34,33 @@
         </thead>
     <?php 
         //echo '<pre>'.var_export($cartera, true).'</pre>';exit;
+        if (isset($cartera) && $cartera !== NULL) {
+            foreach ($cartera as $key => $value) {
+            
+                echo '<tr>
+                        <td>'.$value->nombre.'</td>
+                        <td>'.$value->cedula.'</td>
+                        <td>'.$value->fecha_emision.'</td>
+                        <td>'.$value->fecha_culminacion.'</td>
+                        <td>'.$value->saldo_fecha.'</td>
+                        <td>'.$value->valor_cuota.'</td>
+                        <td>'.$value->cuotas_cancelar.'</td>
+                        <td>'.$value->cuotas_canceladas.'</td>
+                        <td>'.$value->tasa_interes.'</td>
+                        <td>'.$value->tasa_mora.'</td>
+                        <td>'.$value->subtotal.'</td>
+                        <td>'.$value->comision.'</td>
+                        <td>'.$value->coactiva.'</td>
+                        <td>'.$value->total.'</td>   
+                    ';
+                
+                echo  '</tr>';
+            }
+        }else{
+            echo   '<td colspan="14">NO HAY DATOS</td>';  
 
-        foreach ($cartera as $key => $value) {
-            
-            echo '<tr>
-                    <td>'.$value->nombre.'</td>
-                    <td>'.$value->cedula.'</td>
-                    <td>'.$value->fecha_emision.'</td>
-                    <td>'.$value->fecha_culminacion.'</td>
-                    <td>'.$value->saldo_fecha.'</td>
-                    <td>'.$value->valor_cuota.'</td>
-                    <td>'.$value->cuotas_cancelar.'</td>
-                    <td>'.$value->cuotas_canceladas.'</td>
-                    <td>'.$value->tasa_interes.'</td>
-                    <td>'.$value->tasa_mora.'</td>
-                    <td>'.$value->subtotal.'</td>
-                    <td>'.$value->comision.'</td>
-                    <td>'.$value->coactiva.'</td>
-                    <td>'.$value->total.'</td>   
-                ';
-            
-            echo  '</tr>';
         }
+        
         
     ?>
     </table>

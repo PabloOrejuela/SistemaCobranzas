@@ -53,8 +53,9 @@ class CarteraModel extends Model {
             foreach ($query->getResult() as $row) {
                 $dataTable[] = $row;
             }
+            return $dataTable;
         }
         //echo $this->db->getLastQuery();
-        return $dataTable;
+        
     }
 }

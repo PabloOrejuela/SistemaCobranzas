@@ -89,4 +89,14 @@ class Validation extends BaseConfig
             'greater_than' => 'Debe elegir un rol para el usuario',
         ]
     ];
+
+    public $uploadFile = [
+        'tablaCartera' => 'uploaded[tablaCartera]',
+    ];
+
+    public $uploadFile_errors = [
+        'tablaCartera' => [
+            'uploaded' => 'Es necesario seleccionar un archivo para poder subirlo',
+        ]
+    ];
 }
