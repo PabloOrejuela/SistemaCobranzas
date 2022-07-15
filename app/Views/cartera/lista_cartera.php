@@ -1,10 +1,10 @@
 <div class="container mb-5">
-    <form action="<?php echo base_url().'/getExcel';?>" method="post" id="form-subir-excel">
+    <form action="<?php echo base_url().'/getExcel';?>" method="post" id="form-subir-excel" enctype="multipart/form-data">
         <?= csrf_field(); ?>
         <div class="container mb-5" style="margin-top:30px;">
             <div class="col-sm-5 mb-3">
                 <h5>Subir archivo de cartera (.xls)</h5>
-                <input class="form-control form-control-sm" type="file" id="formFile" value="Subir archivo excel">
+                <input class="form-control form-control-sm" type="file" name="tablaCartera" id="formFile" value="Subir archivo excel">
             </div>
             <div>
                 <input type="submit" class="btn btn-outline-secondary" value="Subir archivo">
@@ -30,70 +30,32 @@
             <th>Comisión</th>
             <th>Coactiva</th>
             <th>Total</th>
-            <th>Observación</th>
-            <th>Estado</th>
         </thead>
-        <tbody>
-            <tr>
-                <td>Datos</td>
-                <td>Datos</td>
-                <td>Datos</td>
-                <td>Datos</td>
-                <td>Datos</td>
-                <td>Datos</td>
-                <td>Datos</td>
-                <td>Datos</td>
-                <td>Datos</td>
-                <td>Datos</td>
-                <td>Datos</td>
-                <td>Datos</td>
-                <td>Datos</td>
-                <td>Datos</td>
-                <td>Datos</td>
-                <td>Datos</td>
-            </tr>
-        </tbody>
     <?php 
-        //echo '<pre>'.var_export($membresias, true).'</pre>';
-/*
+        //echo '<pre>'.var_export($cartera, true).'</pre>';exit;
+
         foreach ($cartera as $key => $value) {
             
             echo '<tr>
                     <td>'.$value->nombre.'</td>
                     <td>'.$value->cedula.'</td>
-                    <td>'.$value->fecha_inicio.'</td>
-                    <td>'.$value->fecha_final.'</td>';
-                    echo '<td style="text-align:center;">'.$value->total.'</td>';
-                    if ($saldo <= ($value->total /3) ){
-                        echo '<td style="text-align:center;color:red;">'.$saldo.'</td>';
-                    }else{
-                        echo '<td style="text-align:center;">'.$saldo.'</td>';
-                    }
-                    
-                    
-            
-                    if ($value->status == 1) {
-                        echo '<td>ACTIVA</td>';
-                    }else{
-                        echo'<td>INACTIVA</td>';
-                    }
-                    
-                    if ($value->status == 1) {
-                        echo '<td style="text-align:center;">
-                                <a type="button" id="btn-register" href="asistencia/'.$value->idmembresias.'" 
-                                    class="registro" data-bs-toggle="modal" data-bs-target="#asistenciaModal" 
-                                    onClick="pasaIdmembresia('.$value->idmembresias.','. $saldo.');">
-                                </a>
-                            </td>
-                        <td style="text-align:center;"><a type="button" id="btn-register" href="edit/'.$value->idmembresias.'" class="edit"></a></td>';
-                    }else{
-                        echo '<td style="text-align:center;">CADUCADA</td>
-                        <td style="text-align:center;"><a type="button" id="btn-register" href="edit/'.$value->idmembresias.'" class="edit"></a></td>';
-                    }
+                    <td>'.$value->fecha_emision.'</td>
+                    <td>'.$value->fecha_culminacion.'</td>
+                    <td>'.$value->saldo_fecha.'</td>
+                    <td>'.$value->valor_cuota.'</td>
+                    <td>'.$value->cuotas_cancelar.'</td>
+                    <td>'.$value->cuotas_canceladas.'</td>
+                    <td>'.$value->tasa_interes.'</td>
+                    <td>'.$value->tasa_mora.'</td>
+                    <td>'.$value->subtotal.'</td>
+                    <td>'.$value->comision.'</td>
+                    <td>'.$value->coactiva.'</td>
+                    <td>'.$value->total.'</td>   
+                ';
             
             echo  '</tr>';
         }
-        */
+        
     ?>
     </table>
 </div>

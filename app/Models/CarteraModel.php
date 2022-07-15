@@ -4,17 +4,20 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CarteraModel extends Model
-{
+class CarteraModel extends Model {
     protected $DBGroup          = 'default';
     protected $table            = 'cartera';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'idcliente','fecha_emision','fecha_culminacion','saldo_fecha','valor_cuota',
+        'cuotas_cancelar','cuotas_canceladas','tasa_interes','tasa_mora','subtotal',
+        'comision','coactiva','total',
+    ];
 
     // Dates
     protected $useTimestamps = false;
@@ -39,4 +42,19 @@ class CarteraModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    function _getDataTableCartera(){
+        
+        $builder = $this->db->table('cartera');
+        $builder->select('*');
+        $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
+        $query = $builder->get();
+        if ($query->getResult() != null) {
+            foreach ($query->getResult() as $row) {
+                $dataTable[] = $row;
+            }
+        }
+        //echo $this->db->getLastQuery();
+        return $dataTable;
+    }
 }

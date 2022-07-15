@@ -11,6 +11,10 @@ use Psr\Log\LoggerInterface;
 
 //Llano a los modelos
 use App\Models\UsuarioModel;
+use App\Models\PruebaModel;
+use App\Models\ClienteModel;
+use App\Models\PagoModel;
+use App\Models\CarteraModel;
 
 /**
  * Class BaseController
@@ -22,8 +26,7 @@ use App\Models\UsuarioModel;
  *
  * For security be sure to declare any new methods as protected or private.
  */
-abstract class BaseController extends Controller
-{
+abstract class BaseController extends Controller {
     /**
      * Instance of the main Request object.
      *
@@ -46,14 +49,17 @@ abstract class BaseController extends Controller
     /**
      * Constructor.
      */
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
-    {
+    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger) {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
         $this->db = \Config\Database::connect();
         $this->usuarioModel = new UsuarioModel($this->db);
+        $this->pruebaModel = new PruebaModel($this->db);
+        $this->carteraModel = new CarteraModel($this->db);
+        $this->pagoModel = new PagoModel($this->db);
+        $this->clienteModel = new ClienteModel($this->db);
 
         // E.g.: $this->session = \Config\Services::session();
         $this->session = \Config\Services::session();

@@ -4,19 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ClienteModel extends Model
+class PruebaModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'clientes';
+    protected $table            = 'pruebas';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        'nombre','cedula', 'estado_civil', 'calificacion','direccion','dir_trabajo','telefono_domicilio','telefono_trabajo'
-    ];
+    protected $allowedFields    = ['nombre', 'apellido', 'titulo', 'edad'];
 
     // Dates
     protected $useTimestamps = false;

@@ -66,7 +66,7 @@ class UsuarioModel extends Model{
                 $result = $row;
             }
         }
-        echo $this->db->getLastQuery();
+        //echo $this->db->getLastQuery();
         return $result;
     }
 }
