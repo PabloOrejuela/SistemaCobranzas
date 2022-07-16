@@ -46,7 +46,7 @@ class CarteraModel extends Model {
     function _getDataTableCartera(){
         
         $builder = $this->db->table('cartera');
-        $builder->select('*');
+        $builder->select('*')->where('estado', 0);
         $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
         $query = $builder->get();
         if ($query->getResult() != null) {

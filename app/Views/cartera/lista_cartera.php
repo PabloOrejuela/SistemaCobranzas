@@ -14,7 +14,7 @@
     </form>
         
         <hr />
-        <h4>Cartera</h4>
+        <div id="div-titulo"><h3>Cartera</h3></div> 
     <table class="table table-bordered table-striped table-hover mt-5" id="table-cartera">
         <thead>
             <th>Cliente</th>

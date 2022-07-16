@@ -8,8 +8,7 @@ use CodeIgniter\Validation\FileRules;
 use CodeIgniter\Validation\FormatRules;
 use CodeIgniter\Validation\Rules;
 
-class Validation extends BaseConfig
-{
+class Validation extends BaseConfig {
     //--------------------------------------------------------------------
     // Setup
     //--------------------------------------------------------------------

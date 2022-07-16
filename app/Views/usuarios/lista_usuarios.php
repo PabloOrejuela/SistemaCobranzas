@@ -10,7 +10,7 @@
     </div>
     
     <hr />
-    <h4>Usuarios registrados</h4>
+    <div id="div-titulo"><h3>Usuarios registrados</h3></div>
     <table class="table table-bordered table-striped table-hover mt-5" id="table-usuarios">
         <thead>
             <th>Nombre</th>
