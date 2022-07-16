@@ -48,6 +48,8 @@ $routes->get('/nuevo_usuario', 'Usuario::nuevo_usuario');
 $routes->post('/recibe_nuevo_usuario', 'Usuario::recibe_nuevo_usuario');
 
 $routes->get('/cobros', 'Pago::index');
+$routes->get('/form_pago/(:num)', 'Pago::form_pago/$1');
+$routes->post('/insertPago', 'Pago::insertPago');
 
 $routes->get('/reportes', 'Reportes::index');
 

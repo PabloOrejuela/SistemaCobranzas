@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class CarteraModel extends Model {
     protected $DBGroup          = 'default';
     protected $table            = 'cartera';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'idcartera';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'object';
@@ -56,6 +56,20 @@ class CarteraModel extends Model {
             return $dataTable;
         }
         //echo $this->db->getLastQuery();
+    }
+
+    function _getDataDeuda($idcartera){
         
+        $builder = $this->db->table('cartera');
+        $builder->select('*')->where('idcartera', $idcartera);
+        $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
+        $query = $builder->get();
+        if ($query->getResult() != null) {
+            foreach ($query->getResult() as $row) {
+                $data = $row;
+            }
+            return $data;
+        }
+        //echo $this->db->getLastQuery();
     }
 }

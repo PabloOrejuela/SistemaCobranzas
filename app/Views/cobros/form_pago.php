@@ -1,77 +1,69 @@
-<div class="container-md" id="div-cobros">
-    <div id="div-titulo"><h3>Cobros</h3></div>
-    <table class="table table-bordered table-striped table-hover mt-5" id="table-cartera">
-        <thead>
-            <th>Cliente</th>
-            <th>Cédula</th>
-            <th>Fecha culminación</th>
-            <th>Saldo</th>
-            <th>Cuota</th>
-            <th>Cant. Cuotas</th>
-            <th>Cuotas canceladas</th>
-            <th>Tasa Int.</th>
-            <th>Tasa Mora</th>
-            <th>Subtotal</th>
-            <th>Comisión</th>
-            <th>Total</th>
-        </thead>
-    <?php 
-        //echo '<pre>'.var_export($cartera, true).'</pre>';exit;
-        if (isset($cartera) && $cartera !== NULL) {
-            foreach ($cartera as $key => $value) {
+<div class="container-sm" id="div-cobros">
+    <div id="div-titulo"><h3>Registrar un pago</h3></div>
+    <?= session()->getFlashdata('error'); ?>
+    <?= csrf_field(); ?>
+    <div class="col-md-8">
+        <form action="insertPago" method="post">
+            <?= session()->getFlashdata('error'); ?>
+            <?= csrf_field(); ?>
             
-                echo '<tr>
-                        <td>'.$value->nombre.'</td>
-                        <td>'.$value->cedula.'</td>
-                        <td>'.$value->fecha_culminacion.'</td>
-                        <td>'.$value->saldo_fecha.'</td>
-                        <td>'.$value->valor_cuota.'</td>
-                        <td>'.$value->cuotas_cancelar.'</td>
-                        <td>'.$value->cuotas_canceladas.'</td>
-                        <td>'.$value->tasa_interes.'</td>
-                        <td>'.$value->tasa_mora.'</td>
-                        <td>'.$value->subtotal.'</td>
-                        <td>'.$value->comision.'</td>
-                        <td>'.$value->total.'</td>   
-                    ';
-                
-                echo  '</tr>';
-            }
-        }else{
-            echo   '<td colspan="14">NO HAY DATOS</td>';  
 
-        }
-        
-        
-    ?>
-    </table>
+                <div class="mb-3 row">
+                    <label for="nombre" class="col-sm-2 col-form-label">Nombre: </label>
+                    <div class="col-sm-6">
+                        <input type="text" readonly class="form-control" name="nombre" id="staticEmail" value="<?= $deuda->nombre ?>">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="nombre" class="col-sm-2 col-form-label">Cedula: </label>
+                        <div class="col-sm-6">
+                        <input type="text" readonly class="form-control" name="nombre" id="staticEmail" value="<?= $deuda->cedula ?>">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="nombre" class="col-sm-3 col-form-label">Cuotas restantes: </label>
+                    <div class="col-sm-5">
+                        <input type="text" readonly class="form-control" name="nombre" id="staticEmail" value="<?= $deuda->cuotas_cancelar - $deuda->cuotas_canceladas ?>">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="nombre" class="col-sm-2 col-form-label">Total: </label>
+                        <div class="col-sm-6">
+                        <input type="text" readonly class="form-control" name="nombre" id="staticEmail" value="<?= $deuda->total ?>">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-sm-3 col-form-label">Valor de la couta:</label>
+                        <div class="col-sm-5">
+                        <input type="text" readonly class="form-control" name="nombre" id="staticEmail" value="<?= $deuda->valor_cuota ?>">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Abono:</label>
+                        <div class="col-sm-6">
+                        <input type="text" class="form-control" id="inputPassword" name="abono" placeholder="0.00">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Método:</label>
+                        <div class="col-sm-6">
+                            <select class="form-select" aria-label="Default select example" name="idmetodo_pago">
+                                <option value="0" selected>--Método de pago--</option>
+                                <option value="1">EFECTIVO</option>
+                                <option value="2">DEPOSITO</option>
+                                <option value="3">TRANSFERENCIA</option>
+                            </select>
+                        </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Documento:</label>
+                        <div class="col-sm-6">
+                        <input type="text" class="form-control" name="num_documento" id="staticEmail" placeholder="Número de documento">
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-outline-dark" value="Registrar Abono">
+                <?= form_hidden('idcartera', $idcartera); ?>
+            </form>
+    </div>
 </div>
-<script>
-    $('#table-cartera').DataTable( {
-        paging: true ,
-        "lengthMenu": [ 3, 5, 10, 15 ],
-        language: {
-            processing:     "Procesamiento en curso...",
-            search:         "Buscar:",
-            lengthMenu:     "Listar _MENU_ filas",
-            info:           "_START_ al _END_ de _TOTAL_ registros",
-            infoEmpty:      "0 a 0 de 0 registros",
-            infoFiltered:   "",
-            infoPostFix:    "",
-            loadingRecords: "Cargando...",
-            zeroRecords:    "No hay registros para mostrar",
-            emptyTable:     "Mo hay registros que coicidan",
-            paginate: {
-                first:      "Primero",
-                previous:   "Anterior",
-                next:       "Siguiente",
-                last:       "Último"
-            },
-            aria: {
-                sortAscending:  ": activar para ordenar la columna de manera ascendente",
-                sortDescending: ": activar para ordenar la columna de manera descendente"
-            }
-        }
-    } );
-
-</script>
+    
