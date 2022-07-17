@@ -7,13 +7,15 @@ use CodeIgniter\Model;
 class PagoModel extends Model {
     protected $DBGroup          = 'default';
     protected $table            = 'pagos';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'idpagos';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'abono','idmetodo_pago','documento','img_documento','idusuario','idcartera'
+    ];
 
     // Dates
     protected $useTimestamps = false;

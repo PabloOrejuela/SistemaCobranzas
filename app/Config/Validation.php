@@ -98,4 +98,22 @@ class Validation extends BaseConfig {
             'uploaded' => 'Es necesario seleccionar un archivo para poder subirlo',
         ]
     ];
+
+    public $pago = [
+        'abono'  => 'required|decimal|greater_than[0]',
+        'idmetodo_pago'   => 'required|greater_than[0]',
+        'num_documento'  => 'required',
+    ];
+
+    public $pago_errors = [
+        'abono' => [
+            'required' => 'El campo "Abono" es obligatorio',
+            'decimal' => 'El campo "Abono" debe ser una cantidad válida',
+            'greater_than' => 'El campo "Abono" debe ser mayor que cero',
+        ],
+        'idmetodo_pago' => [
+            'required' => 'El campo "Método de pago" es obligatorio',
+            'greater_than' => 'El campo "Método de pago" no es válido',
+        ]
+    ];
 }
