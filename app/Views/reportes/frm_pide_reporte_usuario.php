@@ -8,16 +8,20 @@
                 <label for="date_desde" class="col-sm-2 col-form-label">Desde: </label>
                 <div class="col-md-4">
                     <input type="date" class="form-control" name="date_desde" id="date" value="<?= date('Y-m-d');?>">
+                    <p id="error-message"><?= session('errors.date_desde');?> </p>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="date_hasta" class="col-sm-2 col-form-label">Desde: </label>
                 <div class="col-md-4">
-                <input type="date" class="form-control" name="date_hasta" id="date" value="<?= date('Y-m-d');?>">
+                    <input type="date" class="form-control" name="date_hasta" id="date" value="<?= date('Y-m-d');?>">
+                    <p id="error-message"><?= session('errors.date_hasta');?> </p>
                 </div>
             </div>
             <div class="mb-3 row">
                 <div class="col-md-5">
+                    <?= form_hidden('idusuario', $usuario->idusuario); ?>
+                    <p id="error-message"><?= session('errors.idusuario');?> </p>
                     <button type="submit" class="btn btn-outline-primary mb-3">Generar reporte</button>
                 </div>
             </div>

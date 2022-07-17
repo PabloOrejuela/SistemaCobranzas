@@ -40,4 +40,20 @@ class PagoModel extends Model {
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    function _getDataCobrosUsuario($data){
+        $builder = $this->db->table('pagos');
+        $builder->select('*');
+        $builder->where('idusuario', $data['idusuario']);
+        $builder->join('metodo_pago', 'metodo_pago.idmetodo_pago = pagos.idmetodo_pago');
+        $builder->join('cartera', 'cartera.idcartera = pagos.idcartera');
+        $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
+        $query = $builder->get();
+        if ($query->getResult() != null) {
+            foreach ($query->getResult() as $row) {
+                $dataTable[] = $row;
+            }
+            return $dataTable;
+        }
+    }
 }

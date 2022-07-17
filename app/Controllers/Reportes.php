@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+use TCPDF;
 
 use App\Controllers\BaseController;
 
@@ -32,7 +33,6 @@ class Reportes extends BaseController {
 
             $data['usuario'] = $this->usuarioModel->find($idusuario);
 
-            
             $data['version'] = $this->system_version;
             $data['title']='Usuarios';
             $data['main_content']='reportes/frm_pide_reporte_usuario';
@@ -43,10 +43,27 @@ class Reportes extends BaseController {
     }
 
     public function reporteCobrosUsuarioFechas(){
+
+        $data = array(
+            'date_desde' => $this->request->getPostGet('date_desde'),
+            'date_hasta' => $this->request->getPostGet('date_hasta'),
+            'idusuario' => $this->request->getPostGet('idusuario'),
+        );
+        //echo '<pre>'.var_export($data, true).'</pre>';
+        $registros = $this->pagoModel->_getDataCobrosUsuario($data);
+        $usuario = $this->usuarioModel->find($data['idusuario']);
+        //echo '<pre>'.var_export($registros, true).'</pre>';
+        $this->PdfReporteCobrosUsuarioFechas($registros, $usuario);
+        //return redirect()->to('/cobros');
         
+    }
+
+    public function PdfReporteCobrosUsuarioFechas($registros, $usuario){
+
         
-        echo '<pre>'.var_export('Reporte', true).'</pre>';exit;
-        $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+        //$lib = include('tcpdf.php');
+        //echo '<pre>'.var_export($registros, true).'</pre>';
+        $pdf = new TCPDF('L', 'mm', 'A4', true, 'UTF-8', false);
         $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
         $pdf->setFooterData(array(0,64,0), array(0,64,128));
         $this->response->setHeader('Content-Type', 'application/pdf'); 
@@ -59,13 +76,37 @@ class Reportes extends BaseController {
         $pdf->setPrintFooter(false);
         $pdf->AddPage(); 
 
-        $html = '<img src="'.site_url().'public/img/cashier.svg" alt="logo" id="logo-report"  width="75" />';
+        $html = '<img src="'.site_url().'public/img/cashier.svg" alt="logo" id="logo-report"  width="50" />';
         //$pdf->image(PDF_HEADER_LOGO, 15, 12, 20, 15, 'jpg', $link = '', $align = '', false, 50, '', false, false, 1, false, false, false);
         $pdf->writeHTML($html, true, false, true, false, '');
 
         $pdf->ln(0);
         $pdf->SetFont('helvetica', 'B', 14);
-        $pdf->Cell(190, 0, 'Reporte ', '', 0, 'C', false);
+        $pdf->Cell(180, 0, 'Reporte de cobros de '.$usuario->nombre, '', 0, 'C', false);
+
+        $pdf->ln(12);
+        $pdf->SetFont('helvetica', 'B', 9);
+        $pdf->Cell(7, 0, 'No.', 'TLRB', 0, 'L', true);
+        $pdf->Cell(55, 0, 'Nombre', 'TLRB', 0, 'C', true);
+        $pdf->Cell(30, 0, 'Cédula', 'TLRB', 0, 'C', true);
+        $pdf->Cell(30, 0, 'Fecha', 'TLRB', 0, 'C', true);
+        $pdf->Cell(30, 0, 'Método', 'TLRB', 0, 'C', true);
+        $pdf->Cell(30, 0, 'Abono', 'TLRB', 0, 'C', true);
+        
+
+        $n=1;
+        foreach ($registros as $value) {
+            $pdf->ln();
+            $pdf->SetFont('helvetica', 'P', 9);
+            $pdf->Cell(7, 0, $n, 'TLRB', 0, 'L', false);
+            $pdf->Cell(55, 0, $value->nombre, 'TLRB', 0, 'L', false);
+            $pdf->Cell(30, 0, $value->cedula, 'TLRB', 0, 'L', false);
+            $pdf->Cell(30, 0, $value->created_at, 'TLRB', 0, 'L', false);
+            $pdf->Cell(30, 0, $value->metodo_pago, 'TLRB', 0, 'R', false);
+            $pdf->Cell(30, 0, $value->abono, 'TLRB', 0, 'R', false);
+            
+            $n++;
+        }
 
         //$pdf->writeHTML($html, true, false, true, false, '');
         $pdf->Output('reporte-cobros-usuario.pdf', 'I'); 

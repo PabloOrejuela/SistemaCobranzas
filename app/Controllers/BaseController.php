@@ -16,6 +16,7 @@ use App\Models\ClienteModel;
 use App\Models\PagoModel;
 use App\Models\CarteraModel;
 
+
 /**
  * Class BaseController
  *
