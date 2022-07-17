@@ -233,6 +233,13 @@ footer .copyrights {
     font-size: 0.7rem;
 }
 
+#table-reportes{
+    margin-top: 300px;
+    margin-left: 0%;
+    font-size: 0.7rem;
+    width: 700px;
+}
+
 .container{
     left: 10px;
     height: max-content;
@@ -254,4 +261,8 @@ footer .copyrights {
     color: rgb(119, 7, 7);
     margin-top: 30px;
     margin-bottom: 30px;
+}
+#img-button{
+    width: 20%;
+    align-items: center;
 }
