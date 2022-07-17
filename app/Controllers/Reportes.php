@@ -43,9 +43,9 @@ class Reportes extends BaseController {
     }
 
     public function reporteCobrosUsuarioFechas(){
-
         
-        //echo '<pre>'.var_export($publicDir, true).'</pre>';exit;
+        
+        echo '<pre>'.var_export('Reporte', true).'</pre>';exit;
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
         $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
         $pdf->setFooterData(array(0,64,0), array(0,64,128));
