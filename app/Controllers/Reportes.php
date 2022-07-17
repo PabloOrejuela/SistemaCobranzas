@@ -95,18 +95,27 @@ class Reportes extends BaseController {
         
 
         $n=1;
-        foreach ($registros as $value) {
+        if ($registros !== NULL) {
+            foreach ($registros as $value) {
+                $pdf->ln();
+                $pdf->SetFont('helvetica', 'P', 9);
+                $pdf->Cell(7, 0, $n, 'TLRB', 0, 'L', false);
+                $pdf->Cell(55, 0, $value->nombre, 'TLRB', 0, 'L', false);
+                $pdf->Cell(30, 0, $value->cedula, 'TLRB', 0, 'L', false);
+                $pdf->Cell(30, 0, $value->created_at, 'TLRB', 0, 'L', false);
+                $pdf->Cell(30, 0, $value->metodo_pago, 'TLRB', 0, 'R', false);
+                $pdf->Cell(30, 0, $value->documento, 'TLRB', 0, 'R', false);
+                $pdf->Cell(30, 0, $value->abono, 'TLRB', 0, 'R', false);
+                
+                $n++;
+            }
+        }else{
             $pdf->ln();
             $pdf->SetFont('helvetica', 'P', 9);
             $pdf->Cell(7, 0, $n, 'TLRB', 0, 'L', false);
-            $pdf->Cell(55, 0, $value->nombre, 'TLRB', 0, 'L', false);
-            $pdf->Cell(30, 0, $value->cedula, 'TLRB', 0, 'L', false);
-            $pdf->Cell(30, 0, $value->created_at, 'TLRB', 0, 'L', false);
-            $pdf->Cell(30, 0, $value->metodo_pago, 'TLRB', 0, 'R', false);
-            $pdf->Cell(30, 0, $value->abono, 'TLRB', 0, 'R', false);
-            
-            $n++;
+            $pdf->Cell(175, 0, 'El usuario no registra cobros en este período de tiempo', 'TLRB', 0, 'L', false);
         }
+        
 
         //$pdf->writeHTML($html, true, false, true, false, '');
         $pdf->Output('reporte-cobros-usuario.pdf', 'I'); 

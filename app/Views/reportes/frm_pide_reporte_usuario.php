@@ -22,7 +22,7 @@
                 <div class="col-md-5">
                     <?= form_hidden('idusuario', $usuario->idusuario); ?>
                     <p id="error-message"><?= session('errors.idusuario');?> </p>
-                    <button type="submit" class="btn btn-outline-primary mb-3">Generar reporte</button>
+                    <input type="submit" class="btn btn-outline-primary mb-3" value="Generar" formtarget="_blank" >
                 </div>
             </div>
         </div>
