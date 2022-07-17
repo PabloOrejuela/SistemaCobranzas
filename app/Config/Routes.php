@@ -52,6 +52,7 @@ $routes->get('/form_pago/(:num)', 'Pago::form_pago/$1');
 $routes->post('/insertPago', 'Pago::insertPago');
 
 $routes->get('/reportes', 'Reportes::index');
+$routes->get('/form_reporte_cobro/(:num)', 'Reportes::form_reporte_cobro/$1');
 
 /*
  * --------------------------------------------------------------------

@@ -72,13 +72,7 @@ class Home extends BaseController{
             $data['main_content']='inicio';
             return view('includes/template', $data);
         }else{
-            $this->session->destroy();
-            $user = [
-                'logged' => 0
-            ];
-            
-            $this->usuarioModel->update($data['idusuario'], $user);
-            return redirect()->to('/');
+            $this->salir();
         }
     }
 
