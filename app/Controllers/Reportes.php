@@ -68,7 +68,7 @@ class Reportes extends BaseController {
         $pdf->setFooterData(array(0,64,0), array(0,64,128));
         $this->response->setHeader('Content-Type', 'application/pdf'); 
         $pdf->SetMargins(15, 10, 15); 
-        $pdf->SetLineWidth(0.01);
+        $pdf->SetLineWidth(0.005);
         $pdf->setCellPaddings(0.8, 0.8, 0.8, 0.8);
         $pdf->SetFillColor(0,200,250);
         
@@ -82,41 +82,46 @@ class Reportes extends BaseController {
 
         $pdf->ln(0);
         $pdf->SetFont('helvetica', 'B', 14);
-        $pdf->Cell(180, 0, 'Reporte de cobros de '.$usuario->nombre, '', 0, 'C', false);
+        $pdf->Cell(268, 0, 'Reporte de cobros de '.$usuario->nombre, '', 0, 'C', false);
 
         $pdf->ln(12);
         $pdf->SetFont('helvetica', 'B', 9);
         $pdf->Cell(7, 0, 'No.', 'TLRB', 0, 'L', true);
-        $pdf->Cell(55, 0, 'Nombre', 'TLRB', 0, 'C', true);
+        $pdf->Cell(65, 0, 'Nombre', 'TLRB', 0, 'C', true);
         $pdf->Cell(30, 0, 'Cédula', 'TLRB', 0, 'C', true);
-        $pdf->Cell(30, 0, 'Fecha', 'TLRB', 0, 'C', true);
+        $pdf->Cell(33, 0, 'Fecha', 'TLRB', 0, 'C', true);
         $pdf->Cell(30, 0, 'Método', 'TLRB', 0, 'C', true);
-        $pdf->Cell(30, 0, 'Abono', 'TLRB', 0, 'C', true);
+        $pdf->Cell(70, 0, 'Documento', 'TLRB', 0, 'C', true);
+        $pdf->Cell(33, 0, 'Abono', 'TLRB', 0, 'C', true);
         
 
         $n=1;
+        $total = 0;
+
         if ($registros !== NULL) {
             foreach ($registros as $value) {
                 $pdf->ln();
                 $pdf->SetFont('helvetica', 'P', 9);
-                $pdf->Cell(7, 0, $n, 'TLRB', 0, 'L', false);
-                $pdf->Cell(55, 0, $value->nombre, 'TLRB', 0, 'L', false);
+                $pdf->Cell(7, 0, $n, 'TLRB', 0, 'C', false);
+                $pdf->Cell(65, 0, $value->nombre, 'TLRB', 0, 'L', false);
                 $pdf->Cell(30, 0, $value->cedula, 'TLRB', 0, 'L', false);
-                $pdf->Cell(30, 0, $value->created_at, 'TLRB', 0, 'L', false);
+                $pdf->Cell(33, 0, $value->created_at, 'TLRB', 0, 'L', false);
                 $pdf->Cell(30, 0, $value->metodo_pago, 'TLRB', 0, 'R', false);
-                $pdf->Cell(30, 0, $value->documento, 'TLRB', 0, 'R', false);
-                $pdf->Cell(30, 0, $value->abono, 'TLRB', 0, 'R', false);
-                
+                $pdf->Cell(70, 0, $value->documento, 'TLRB', 0, 'R', false);
+                $pdf->Cell(33, 0, '$ '.$value->abono, 'TLRB', 0, 'R', false);
+                $total += $value->abono;
                 $n++;
             }
         }else{
             $pdf->ln();
             $pdf->SetFont('helvetica', 'P', 9);
-            $pdf->Cell(7, 0, $n, 'TLRB', 0, 'L', false);
-            $pdf->Cell(175, 0, 'El usuario no registra cobros en este período de tiempo', 'TLRB', 0, 'L', false);
+            $pdf->Cell(268, 0, 'El usuario no registra cobros en este período de tiempo', 'TLRB', 0, 'L', false);
         }
-        
-
+        $pdf->ln();
+        $pdf->Cell(268, 0, '', 'TLRB', 0, 'R', false);
+        $pdf->ln();
+        $pdf->Cell(235, 0, 'TOTAL: ', 'TLRB', 0, 'R', false);
+        $pdf->Cell(33, 0, '$ '.number_format($total, 2), 'TLRB', 0, 'R', false);
         //$pdf->writeHTML($html, true, false, true, false, '');
         $pdf->Output('reporte-cobros-usuario.pdf', 'I'); 
         //exit();

@@ -73,7 +73,7 @@ class Usuario extends BaseController {
                 //dd($validation->getErrors());
                 return redirect()->back()->withInput()->with('errors', $this->validation->getErrors());
             }else{ 
-                //echo '<pre>'.var_export($data, true).'</pre>';exit;
+                //echo '<pre>'.var_export($data, true).'</pre>';exit
                 $this->usuarioModel->save($data);
                 $lastId = $this->db->insertID();
 

@@ -14,7 +14,7 @@ class UsuarioModel extends Model{
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nombre', 'cedula', 'password', 'email', 'direccion', 'telefono', 'logged'];
+    protected $allowedFields    = ['nombre', 'cedula', 'password', 'email', 'direccion', 'telefono', 'logged', 'idrol'];
 
     // Dates
     protected $useTimestamps = false;
