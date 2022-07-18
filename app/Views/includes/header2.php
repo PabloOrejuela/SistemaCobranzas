@@ -22,7 +22,7 @@
                             <li class="menu-item"><a href="#" target="_self">Cobros</a></li>
                             <li class="menu-item"><a href="'. base_url().'/salir" target="_self">Salir</a></li>';
                 }
-                echo '<li class="menu-item" style="margin-left: 30px;border:1px solid black;padding: 5px;">Bienvenido '.$nombre.'</li>';
+                echo '<li class="menu-item" style="margin-left: 30px;border:1px solid black;padding: 5px;">Usuario: '.$nombre.'</li>';
             ?>
             
         </ul>
