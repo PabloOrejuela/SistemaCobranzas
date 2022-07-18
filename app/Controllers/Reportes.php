@@ -87,8 +87,8 @@ class Reportes extends BaseController {
         $pdf->ln(12);
         $pdf->SetFont('helvetica', 'B', 9);
         $pdf->Cell(7, 0, 'No.', 'TLRB', 0, 'L', true);
-        $pdf->Cell(65, 0, 'Nombre', 'TLRB', 0, 'C', true);
-        $pdf->Cell(30, 0, 'Cédula', 'TLRB', 0, 'C', true);
+        $pdf->Cell(70, 0, 'Nombre', 'TLRB', 0, 'C', true);
+        $pdf->Cell(25, 0, 'Cédula', 'TLRB', 0, 'C', true);
         $pdf->Cell(33, 0, 'Fecha', 'TLRB', 0, 'C', true);
         $pdf->Cell(30, 0, 'Método', 'TLRB', 0, 'C', true);
         $pdf->Cell(70, 0, 'Documento', 'TLRB', 0, 'C', true);
@@ -101,10 +101,10 @@ class Reportes extends BaseController {
         if ($registros !== NULL) {
             foreach ($registros as $value) {
                 $pdf->ln();
-                $pdf->SetFont('helvetica', 'P', 9);
+                $pdf->SetFont('helvetica', 'P', 8);
                 $pdf->Cell(7, 0, $n, 'TLRB', 0, 'C', false);
-                $pdf->Cell(65, 0, $value->nombre, 'TLRB', 0, 'L', false);
-                $pdf->Cell(30, 0, $value->cedula, 'TLRB', 0, 'L', false);
+                $pdf->Cell(70, 0, $value->nombre, 'TLRB', 0, 'L', false);
+                $pdf->Cell(25, 0, $value->cedula, 'TLRB', 0, 'C', false);
                 $pdf->Cell(33, 0, $value->created_at, 'TLRB', 0, 'L', false);
                 $pdf->Cell(30, 0, $value->metodo_pago, 'TLRB', 0, 'R', false);
                 $pdf->Cell(70, 0, $value->documento, 'TLRB', 0, 'R', false);

@@ -56,18 +56,18 @@ class Pago extends BaseController{
                 'idcartera' => $this->request->getPostGet('idcartera'),
                 'documento' => $this->request->getPostGet('documento'),
             );
-
+            //echo '<pre>'.var_export($registro, true).'</pre>';exit;
             $this->validation->setRuleGroup('pago');
         
             if (!$this->validation->withRequest($this->request)->run()) {
                 //Depuración
-                //dd($validation->getErrors());
+                //dd($this->validation->getErrors());
                 return redirect()->back()->withInput()->with('errors', $this->validation->getErrors());
             }else{
                 $registro['idusuario'] = $this->session->idusuario;
                 //echo '<pre>'.var_export($data, true).'</pre>';
                 $r = $this->pagoModel->save($registro);
-                echo '<pre>'.var_export($r, true).'</pre>';
+                //echo '<pre>'.var_export($r, true).'</pre>';
                 return redirect()->to('/cobros');
             }
         }else{

@@ -102,7 +102,6 @@ class Validation extends BaseConfig {
     public $pago = [
         'abono'  => 'required|decimal|greater_than[0]',
         'idmetodo_pago'   => 'required|greater_than[0]',
-        'num_documento'  => 'required',
     ];
 
     public $pago_errors = [
