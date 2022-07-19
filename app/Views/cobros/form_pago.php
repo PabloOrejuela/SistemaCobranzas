@@ -92,8 +92,11 @@
                             name="documento" 
                             id="documento" 
                             placeholder="Datos documento"
+                            maxlength=120
                         ></textarea>
+                        <p id="contador">0 caracteres</p>
                     </div>
+                    
                 </div>
                 <?= form_hidden('idcartera', $idcartera); ?>
                 <input type="submit" class="btn btn-outline-dark" value="Registrar Abono">
@@ -110,5 +113,16 @@
                 $("#documento").prop("disabled", false);
             }
         });
+    });
+
+    //Contador de caracteres
+    const mensaje = document.getElementById('documento');
+    const contador = document.getElementById('contador');
+
+    mensaje.addEventListener('input', function(e) {
+        const target = e.target;
+        const longitudMax = target.getAttribute('maxlength');
+        const longitudAct = target.value.length;
+        contador.innerHTML = `${longitudAct}/${longitudMax + ' caracteres máximo'}`;
     });
 </script>

@@ -12,15 +12,15 @@
                 if ($idrol <= 2) {
                     //echo '<li class="menu-item"><a href="'. base_url().'/inicio">Inicio</a></li>'
                     echo '       
-                            <li class="menu-item"><a href="'.base_url().'/cartera" target="_self">Cartera</a></li>
-                            <li class="menu-item"><a href="'.base_url().'/usuarios" target="_self">Usuarios</a></li>
-                            <li class="menu-item"><a href="'. base_url().'/cobros" target="_self">Cobros</a></li>
-                            <li class="menu-item"><a href="'. base_url().'/reportes" target="_self">Reportes</a></li>
-                            <li class="menu-item"><a href="'. base_url().'/salir" target="_self">Salir</a></li>';
+                            <li class="menu-item"><a href="'.base_url().'/cartera" target="_self" id="link-item">Cartera</a></li>
+                            <li class="menu-item"><a href="'.base_url().'/usuarios" target="_self" id="link-item">Usuarios</a></li>
+                            <li class="menu-item"><a href="'. base_url().'/cobros" target="_self" id="link-item">Cobros</a></li>
+                            <li class="menu-item"><a href="'. base_url().'/reportes" target="_self" id="link-item">Reportes</a></li>
+                            <li class="menu-item"><a href="'. base_url().'/salir" target="_self" id="link-item">Salir</a></li>';
                 } elseif ($idrol == 3) {
-                    echo '<li class="menu-item"><a href="'. base_url().'/inicio">Inicio</a></li>
-                            <li class="menu-item"><a href="#" target="_self">Cobros</a></li>
-                            <li class="menu-item"><a href="'. base_url().'/salir" target="_self">Salir</a></li>';
+                    echo '<li class="menu-item"><a href="'. base_url().'/inicio" id="link-item">Inicio</a></li>
+                            <li class="menu-item"><a href="#" target="_self" id="link-item">Cobros</a></li>
+                            <li class="menu-item"><a href="'. base_url().'/salir" target="_self" id="link-item">Salir</a></li>';
                 }
                 echo '<li class="menu-item" style="margin-left: 30px;border:1px solid black;padding: 5px;">Usuario: '.$nombre.'</li>';
             ?>

@@ -6,3 +6,4 @@
 - Implementado el framework con las configuraciones necesarias
 - Creado el modelo de usuarios y llamado desde el base controller
 - Cambio del nombre de la vista welcome_messaje por inicio
+- Ya se puede usar la hoja excel completa, solo hay que limpiar ciertas zonas

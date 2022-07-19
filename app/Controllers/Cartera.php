@@ -52,25 +52,25 @@ class Cartera extends BaseController{
                     if ($key != 0) {
                         $datos = explode(";", $fila);
 
-                        if ($datos[4] == 'SOLTERO') {
+                        if ($datos[5] == 'SOLTERO') {
                             $idestado_civil = 1;
-                        }elseif ($datos[4] == 'CASADO') {
+                        }elseif ($datos[5] == 'CASADO') {
                             $idestado_civil = 2;
-                        }elseif ($datos[4] == 'DIVORCIADO') {
+                        }elseif ($datos[5] == 'DIVORCIADO') {
                             $idestado_civil = 3;
                         }else{
                             $idestado_civil = 4;
                         }
 
                         $cliente = array(
-                            'nombre' => trim($datos[3]),
-                            'cedula' => $datos[2],
+                            'nombre' => trim($datos[4]),
+                            'cedula' => $datos[3],
                             'idestado_civil' => $idestado_civil,
-                            'calificacion' => $datos[16],
-                            'direccion' => trim($datos[28]),
-                            'dir_trabajo' => trim($datos[29]),
-                            'telefono_domicilio' => $datos[30],
-                            'telefono_trabajo' => $datos[31],
+                            'calificacion' => $datos[17],
+                            'direccion' => trim($datos[29]),
+                            'dir_trabajo' => trim($datos[30]),
+                            'telefono_domicilio' => $datos[31],
+                            'telefono_trabajo' => $datos[32],
                         );
 
                         $this->clienteModel->save($cliente);
@@ -78,18 +78,18 @@ class Cartera extends BaseController{
 
                         $registro = array(
                             'idcliente' => $idcliente,
-                            'fecha_emision' => $datos[7],
-                            'fecha_culminacion' => $datos[8],
-                            'saldo_fecha' => $datos[17],
-                            'valor_cuota' => $datos[18],
-                            'cuotas_cancelar' => $datos[19],
-                            'cuotas_canceladas' => $datos[20],
-                            'tasa_interes' => $datos[12],
-                            'tasa_mora' => $datos[13],
-                            'subtotal' => $datos[34],
-                            'comision' => $datos[35],
-                            'coactiva' => $datos[36],
-                            'total' => $datos[37],
+                            'fecha_emision' => $datos[8],
+                            'fecha_culminacion' => $datos[9],
+                            'saldo_fecha' => $datos[18],
+                            'valor_cuota' => $datos[19],
+                            'cuotas_cancelar' => $datos[20],
+                            'cuotas_canceladas' => $datos[21],
+                            'tasa_interes' => $datos[13],
+                            'tasa_mora' => $datos[14],
+                            'subtotal' => $datos[54],
+                            'comision' => $datos[55],
+                            'coactiva' => $datos[56],
+                            'total' => $datos[57],
                         );
                         $this->carteraModel->save($registro);
                         //echo '<pre>'.var_export($cliente, true).'</pre>';
