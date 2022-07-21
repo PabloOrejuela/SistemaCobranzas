@@ -25,6 +25,23 @@ class Cartera extends BaseController{
         }
     }
 
+    public function frm_subir_excel(){
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+
+        if ($data['logged_in'] == 1) {
+
+            $data['version'] = $this->system_version;
+            $data['title']='Cartera';
+            $data['main_content']='cartera/frm_subirExcel';
+            return view('includes/template', $data);
+        }else{
+            $this->logout();
+        }
+    }
+
     public function getExcel(){
         $data['idrol'] = $this->session->idrol;
         $data['idusuario'] = $this->session->idusuario;

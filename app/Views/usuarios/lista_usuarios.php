@@ -1,53 +1,54 @@
-<div class="container mb-5">
-        
-    <div class="container mb-5" style="margin-top:30px;">
-        <div class="col-4 mb-3">
-            <h5>Registrar un nuevo usuario</h5>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4"><?= esc($title); ?></h1>
+                        
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fa-solid fa-users"></i>
+                    <?= esc($title); ?>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-striped table-hover mt-5" id="datatablesSimple">
+                        <thead>
+                            <th>Nombre</th>
+                            <th>Cédula</th>
+                            <th>Email</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>Rol</th>
+                        </thead>
+                    <?php 
+                        //echo '<pre>'.var_export($membresias, true).'</pre>';
+                        csrf_field();
+                        foreach ($lista_usuarios as $key => $value) {
+                            
+                            echo '<tr>
+                                    <td>'.$value->nombre.'</td>
+                                    <td>'.$value->cedula.'</td>
+                                    <td>'.$value->email.'</td>
+                                    <td>'.$value->direccion.'</td>
+                                    <td>'.$value->telefono.'</td>';        
+                            
+                                    if ($value->idrol == 1) {
+                                        echo '<td>Superadministrador</td>';
+                                    }elseif($value->idrol == 2){
+                                        echo'<td>Administrador</td>';
+                                    }else{
+                                        echo'<td>Cobrador</td>';
+                                    }
+                            
+                            echo  '</tr>';
+                        }
+                        
+                    ?>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div>
-            <a class="btn btn-outline-secondary" href="<?php echo base_url().'/nuevo_usuario';?>">Nuevo Usuario</a>
-        </div>
-    </div>
-    
-    <hr />
-    <div id="div-titulo"><h3>Usuarios registrados</h3></div>
-    <table class="table table-bordered table-striped table-hover mt-5" id="table-usuarios">
-        <thead>
-            <th>Nombre</th>
-            <th>Cédula</th>
-            <th>Email</th>
-            <th>Dirección</th>
-            <th>Teléfono</th>
-            <th>Rol</th>
-        </thead>
-    <?php 
-        //echo '<pre>'.var_export($membresias, true).'</pre>';
-        csrf_field();
-        foreach ($lista_usuarios as $key => $value) {
-            
-            echo '<tr>
-                    <td>'.$value->nombre.'</td>
-                    <td>'.$value->cedula.'</td>
-                    <td>'.$value->email.'</td>
-                    <td>'.$value->direccion.'</td>
-                    <td>'.$value->telefono.'</td>';        
-            
-                    if ($value->idrol == 1) {
-                        echo '<td>Superadministrador</td>';
-                    }elseif($value->idrol == 2){
-                        echo'<td>Administrador</td>';
-                    }else{
-                        echo'<td>Cobrador</td>';
-                    }
-            
-            echo  '</tr>';
-        }
-        
-    ?>
-    </table>
-</div>
+    </main>
 <script>
-    $('#table-usuarios').DataTable( {
+    $('#datatablesSimple').DataTable( {
         paging: true ,
         "lengthMenu": [ 5, 10 ],
         language: {
