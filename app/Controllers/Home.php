@@ -67,6 +67,9 @@ class Home extends BaseController{
         $data['logged_in'] = $this->session->logged_in;
         $data['nombre'] = $this->session->nombre;
         if ($data['logged_in'] == 1) {
+
+            $data['empresas'] = $this->empresaModel->findAll();
+
             $data['version'] = $this->system_version;
             $data['title']='Inicio';
             $data['main_content']='home/frm_cooperativas';
