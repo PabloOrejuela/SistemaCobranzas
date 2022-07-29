@@ -9,7 +9,7 @@ class Home extends BaseController{
 
         $data['version'] = $this->system_version;
         $data['title']='Acceso al sistema:';
-        $data['main_content']='login';
+        $data['main_content']='home/login';
         return view('includes/template_login', $data);
     
     }
@@ -51,7 +51,7 @@ class Home extends BaseController{
                 $this->usuarioModel->update($usuario->idusuario, $user);
                 $this->session->set($sessiondata);
 
-                return redirect()->to('/cartera');
+                return redirect()->to('cartera');
             }else{
 
                 return redirect()->to('/');
@@ -69,7 +69,7 @@ class Home extends BaseController{
         if ($data['logged_in'] == 1) {
             $data['version'] = $this->system_version;
             $data['title']='Inicio';
-            $data['main_content']='inicio';
+            $data['main_content']='home/frm_cooperativas';
             return view('includes/template', $data);
         }else{
             $this->salir();
