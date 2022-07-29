@@ -26,6 +26,6 @@
         </header>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html"><img src="<?= site_url(); ?>public/img/cashier-logo.png" alt="logo" id="img-logo"></a>
+            <a class="navbar-brand ps-3" href="<?php echo site_url();?>"><img src="<?= site_url(); ?>public/img/cashier-logo.png" alt="logo" id="img-logo"></a>
         </nav>
     </body>
