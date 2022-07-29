@@ -51,7 +51,7 @@
                                 </a>
                                 <div class="collapse" id="pagesCollapseAuthCartera" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="<?= site_url(); ?>cartera">Lista cartera</a>
+                                        <a class="nav-link" href="<?= site_url(); ?>inicio">Lista cartera</a>
                                         <a class="nav-link" href="<?= site_url(); ?>subir_excel">Subir archivo excel</a>
                                     </nav>
                                 </div>

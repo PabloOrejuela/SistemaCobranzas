@@ -8,10 +8,10 @@ class EmpresaModel extends Model{
 
     protected $DBGroup          = 'default';
     protected $table            = 'empresas';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'idempresa';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = ['empresa'];

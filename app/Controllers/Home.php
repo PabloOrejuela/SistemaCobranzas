@@ -69,9 +69,9 @@ class Home extends BaseController{
         if ($data['logged_in'] == 1) {
 
             $data['empresas'] = $this->empresaModel->findAll();
-
+            ## echo '<pre>'.var_export($data['empresas'], true).'</pre>';
             $data['version'] = $this->system_version;
-            $data['title']='Inicio';
+            $data['title']='Cartera';
             $data['main_content']='home/frm_cooperativas';
             return view('includes/template', $data);
         }else{
