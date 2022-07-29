@@ -14,7 +14,9 @@ class Cartera extends BaseController{
 
         if ($data['logged_in'] == 1) {
 
-            $data['cartera'] = $this->carteraModel->_getDataTableCartera();
+            $data['idempresa'] = $this->request->getPostGet('idempresa');
+
+            $data['cartera'] = $this->carteraModel->_getDataTableCartera($data['idempresa']);
 
             $data['version'] = $this->system_version;
             $data['title']='Cartera';

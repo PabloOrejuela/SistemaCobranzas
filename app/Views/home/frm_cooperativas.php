@@ -9,13 +9,13 @@
                     <?= esc($title).' - Elija una Cooperativa para ver la cartera'; ?>
                 </div>
                 <div class="card-body">
-                    <form action="<?php echo base_url().'/recibe_nuevo_usuario';?>" method="post">
+                    <form action="<?php echo base_url().'/cartera';?>" method="post">
                         <?= session()->getFlashdata('error'); ?>
                         <?= csrf_field(); ?>
                         <div class="mb-1 row">
                             <label for="idrol" class="col-sm-2 col-form-label">Cooperativa: </label>
                             <div class="col-sm-6">
-                                <select class="form-select" aria-label="Default select example" value="<?= old('idrol'); ?>" name="idrol">
+                                <select class="form-select" aria-label="Default select example" value="<?= old('idempresa'); ?>" name="idempresa">
                                     <option value="0" selected>-- Escoja una cooperativa --</option>
                                     <?php  
                                         if (isset($empresas) && $empresas !== NULL) {

@@ -43,11 +43,13 @@ class CarteraModel extends Model {
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    function _getDataTableCartera(){
+    function _getDataTableCartera($idempresa){
         
         $builder = $this->db->table('cartera');
         $builder->select('*')->where('estado', 0);
         $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
+        $builder->join('empresas', 'empresas.idempresa = cartera.idempresa');
+        $builder->where('cartera.idempresa', $idempresa);
         $query = $builder->get();
         if ($query->getResult() != null) {
             foreach ($query->getResult() as $row) {

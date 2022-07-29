@@ -40,7 +40,7 @@ $routes->post('/validate_credentials', 'Home::validate_credentials');
 $routes->get('/inicio', 'Home::inicio');
 $routes->get('/salir', 'Home::salir');
 
-$routes->get('/cartera', 'Cartera::index');
+$routes->post('/cartera', 'Cartera::index');
 $routes->get('subir_excel', 'Cartera::frm_subir_excel');
 $routes->post('/getExcel', 'Cartera::getExcel');
 
