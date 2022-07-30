@@ -19,12 +19,14 @@ class Cliente extends BaseController {
 
         if ($data['logged_in'] == 1) {
         
-        # Traigo todas las visitas que le han hecho y los pagos
+            # Traigo todas las visitas que le han hecho y los pagos
+            $data['idempresa'] = $this->session->idempresa;
+            $data['version'] = $this->system_version;
+            
+            $data['title']='Resumen del seguimiento al Cliente';
+            $data['main_content']='cliente/resumen_cliente';
+            return view('includes/template', $data);
 
-        $data['version'] = $this->system_version;
-        $data['title']='Resumen del seguimiento al Cliente';
-        $data['main_content']='cartera/lista_cartera';
-        return view('includes/template', $data);
         }else{
             $this->logout();
         }

@@ -39,6 +39,7 @@
                                     }
                             
                             echo  '</tr>';
+                            echo '<tr><td>Página renderizada en {elapsed_time} segundos</td></tr>';
                         }
                         
                     ?>

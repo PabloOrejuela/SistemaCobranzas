@@ -5,6 +5,7 @@ namespace App\Controllers;
 class Home extends BaseController{
     
     public function index($message = NULL){
+        $this->session->destroy();
         $data['mensaje'] = $this->request->getPostGet('message');
 
         $data['version'] = $this->system_version;
@@ -67,14 +68,41 @@ class Home extends BaseController{
         $data['logged_in'] = $this->session->logged_in;
         $data['nombre'] = $this->session->nombre;
         if ($data['logged_in'] == 1) {
+            if ($this->session->idempresa) {
+                return redirect()->to('/cartera');
+                
+            }else{
+                $data['idempresa'] = $this->session->idempresa;
+                $data['empresas'] = $this->empresaModel->findAll();
+                //echo '<pre>'.var_export($data['idempresa'], true).'</pre>';
+                $data['version'] = $this->system_version;
+                $data['title']='Cartera';
+                $data['main_content']='home/frm_cooperativas';
+                return view('includes/template', $data);
+            }
+            
+        }else{
+            $this->salir();
+        }
+    }
+
+    public function frm_cooperativas(){
+
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+        if ($data['logged_in'] == 1) {
 
             $data['idempresa'] = $this->session->idempresa;
             $data['empresas'] = $this->empresaModel->findAll();
-            ## echo '<pre>'.var_export($data['empresas'], true).'</pre>';
+            //echo '<pre>'.var_export($data['idempresa'], true).'</pre>';
             $data['version'] = $this->system_version;
             $data['title']='Cartera';
             $data['main_content']='home/frm_cooperativas';
             return view('includes/template', $data);
+            
+            
         }else{
             $this->salir();
         }

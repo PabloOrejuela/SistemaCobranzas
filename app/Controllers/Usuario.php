@@ -13,7 +13,7 @@ class Usuario extends BaseController {
         $data['logged_in'] = $this->session->logged_in;
         $data['nombre'] = $this->session->nombre;
         if ($data['logged_in'] == 1) {
-
+            $data['idempresa'] = $this->session->idempresa;
             $data['lista_usuarios'] = $this->usuarioModel->findAll();
 
             $data['version'] = $this->system_version;
@@ -39,7 +39,7 @@ class Usuario extends BaseController {
         $data['nombre'] = $this->session->nombre;
         if ($data['logged_in'] == 1) {
 
-
+            $data['idempresa'] = $this->session->idempresa;
             $data['version'] = $this->system_version;
             $data['title']='Usuarios';
             $data['main_content']='usuarios/frm_nuevo_usuario';

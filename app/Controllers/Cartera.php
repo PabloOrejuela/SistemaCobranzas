@@ -14,12 +14,35 @@ class Cartera extends BaseController{
 
         if ($data['logged_in'] == 1) {
 
+            if ($this->session->idempresa) {
+                $data['idempresa'] = $this->session->idempresa;
+                $data['cartera'] = $this->carteraModel->_getDataTableCartera($data['idempresa']);
+                $data['version'] = $this->system_version;
+                $data['title']='Cartera';
+                $data['main_content']='cartera/lista_cartera';
+                return view('includes/template', $data);
+            }else{
+                return redirect()->to('/inicio');
+            }
+        }else{
+            $this->logout();
+        }
+    }
+
+    public function lista_cartera(){
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+
+        if ($data['logged_in'] == 1) {
+            
             $data['idempresa'] = $this->request->getPostGet('idempresa');
 
             $sessiondata = ['idempresa' => $data['idempresa']];
             $this->session->set($sessiondata);
             $this->idempresa = $data['idempresa'];
-
+            
             $data['cartera'] = $this->carteraModel->_getDataTableCartera($data['idempresa']);
 
             $data['version'] = $this->system_version;

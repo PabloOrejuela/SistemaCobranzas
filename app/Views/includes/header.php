@@ -53,6 +53,7 @@
                                     <nav class="sb-sidenav-menu-nested nav">
                                         <a class="nav-link" href="<?= site_url(); ?>inicio">Lista cartera</a>
                                         <a class="nav-link" href="<?= site_url(); ?>subir_excel">Subir archivo excel</a>
+                                        <a class="nav-link" href="<?= site_url(); ?>cooperativas">Lista Cooperativas</a>
                                     </nav>
                                 </div>
                             </nav>

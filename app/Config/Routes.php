@@ -38,9 +38,11 @@ $routes->setAutoRoute(false);
 $routes->get('/', 'Home::index');
 $routes->post('/validate_credentials', 'Home::validate_credentials');
 $routes->get('/inicio', 'Home::inicio');
+$routes->get('/cooperativas', 'Home::frm_cooperativas');
 $routes->get('/salir', 'Home::salir');
 
-$routes->post('/cartera', 'Cartera::index');
+$routes->get('/cartera', 'Cartera::index');
+$routes->post('/lista_cartera', 'Cartera::lista_cartera');
 $routes->get('subir_excel', 'Cartera::frm_subir_excel');
 $routes->post('/getExcel', 'Cartera::getExcel');
 

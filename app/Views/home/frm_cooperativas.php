@@ -6,10 +6,10 @@
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fa-solid fa-users"></i>
-                    <?= esc($title).' - Elija una Cooperativa para ver la cartera'; ?>
+                    <?= esc($title).' - Elija una Cooperativa para ver la cartera '; ?>
                 </div>
                 <div class="card-body">
-                    <form action="<?php echo base_url().'/cartera';?>" method="post">
+                    <form action="<?php echo base_url().'/lista_cartera';?>" method="post">
                         <?= session()->getFlashdata('error'); ?>
                         <?= csrf_field(); ?>
                         <div class="mb-1 row">
