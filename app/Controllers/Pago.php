@@ -13,7 +13,25 @@ class Pago extends BaseController{
         $data['nombre'] = $this->session->nombre;
         if ($data['logged_in'] == 1) {
 
-            $data['cartera'] = $this->carteraModel->_getDataTableCartera();
+            $data['cartera'] = $this->carteraModel->_getDataTableCartera($this->session->idempresa);
+
+            $data['version'] = $this->system_version;
+            $data['title']='Cobros';
+            $data['main_content']='cobros/form_cartera';
+            return view('includes/template', $data);
+        }else{
+            $this->logout();
+        }
+    }
+
+    public function visita(){
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+        if ($data['logged_in'] == 1) {
+
+            $data['cartera'] = $this->carteraModel->_getDataTableCartera($this->session->idempresa);
 
             $data['version'] = $this->system_version;
             $data['title']='Cobros';

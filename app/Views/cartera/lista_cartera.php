@@ -6,7 +6,7 @@
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fa-solid fa-cash-register"></i>
-                    <?= esc($cartera[0]->empresa); ?>
+                    <?= isset($cartera[0]->empresa) ? esc($cartera[0]->empresa) : 'No hay datos'; ?>
                 </div>
                 <div class="card-body"> 
                     <table class="table table-bordered table-striped table-hover mt-5" id="datatablesSimple">

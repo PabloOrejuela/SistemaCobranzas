@@ -16,6 +16,9 @@ class Cartera extends BaseController{
 
             $data['idempresa'] = $this->request->getPostGet('idempresa');
 
+            $sessiondata = ['idempresa' => $data['idempresa']];
+            $this->session->set($sessiondata);
+
             $data['cartera'] = $this->carteraModel->_getDataTableCartera($data['idempresa']);
 
             $data['version'] = $this->system_version;
