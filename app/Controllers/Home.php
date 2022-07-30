@@ -68,6 +68,7 @@ class Home extends BaseController{
         $data['nombre'] = $this->session->nombre;
         if ($data['logged_in'] == 1) {
 
+            $data['idempresa'] = $this->session->idempresa;
             $data['empresas'] = $this->empresaModel->findAll();
             ## echo '<pre>'.var_export($data['empresas'], true).'</pre>';
             $data['version'] = $this->system_version;

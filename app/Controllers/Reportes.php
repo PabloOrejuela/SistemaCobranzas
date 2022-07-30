@@ -14,7 +14,7 @@ class Reportes extends BaseController {
         if ($data['logged_in'] == 1) {
 
             $data['lista_usuarios'] = $this->usuarioModel->findAll();
-
+            $data['idempresa'] = $this->session->idempresa;
             $data['version'] = $this->system_version;
             $data['title']='Usuarios';
             $data['main_content']='reportes/lista_usuarios_reportes';
@@ -32,7 +32,7 @@ class Reportes extends BaseController {
         if ($data['logged_in'] == 1) {
 
             $data['usuario'] = $this->usuarioModel->find($idusuario);
-
+            $data['idempresa'] = $this->session->idempresa;
             $data['version'] = $this->system_version;
             $data['title']='Usuarios';
             $data['main_content']='reportes/frm_pide_reporte_usuario';
@@ -43,6 +43,7 @@ class Reportes extends BaseController {
     }
 
     public function reporteCobrosUsuarioFechas(){
+        $data['idempresa'] = $this->session->idempresa;
 
         $data = array(
             'date_desde' => $this->request->getPostGet('date_desde'),

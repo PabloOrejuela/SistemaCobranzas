@@ -73,33 +73,53 @@
                             </nav>
                             <!-- END Menú Item -->
                             <!-- Menu Item -->
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuthCobros" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                                    Seguimiento
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseAuthCobros" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="<?= site_url(); ?>cobros">Registrar un cobro o visita</a>
+                            <?php 
+                                if (isset($idempresa) && $idempresa != NULL && $idempresa != 0) {
+                                    echo '
+                                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                        <a 
+                                            class="nav-link collapsed" 
+                                            href="#" 
+                                            data-bs-toggle="collapse" 
+                                            data-bs-target="#pagesCollapseAuthCobros" 
+                                            aria-expanded="false" 
+                                            aria-controls="pagesCollapseAuth"
+                                        >
+                                            <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                                            Seguimiento
+                                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                        </a>
+                                        <div class="collapse" id="pagesCollapseAuthCobros" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                            <nav class="sb-sidenav-menu-nested nav">
+                                                <a class="nav-link" href="'.site_url().'cobros">Registrar un cobro o visita</a>
+                                            </nav>
+                                        </div>
                                     </nav>
-                                </div>
-                            </nav>
-                            <!-- END Menú Item -->
-                            <!-- Menu Item -->
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuthReportes" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-chart-line"></i></div>
-                                    Reportes
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseAuthReportes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="<?= site_url(); ?>reportes">Lista usuarios para pedir reportes</a>
+                                    <!-- END Menú Item -->
+                                    
+                                    <!-- Menu Item -->
+                                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                        <a 
+                                            class="nav-link collapsed" 
+                                            href="#" data-bs-toggle="collapse" 
+                                            data-bs-target="#pagesCollapseAuthReportes" 
+                                            aria-expanded="false" 
+                                            aria-controls="pagesCollapseAuth"
+                                        >
+                                            <div class="sb-nav-link-icon"><i class="fa-solid fa-chart-line"></i></div>
+                                            Reportes
+                                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                        </a>
+                                        <div class="collapse" id="pagesCollapseAuthReportes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                            <nav class="sb-sidenav-menu-nested nav">
+                                                <a class="nav-link" href="'.site_url().'reportes">Lista usuarios para pedir reportes</a>
+                                            </nav>
+                                        </div>
                                     </nav>
-                                </div>
-                            </nav>
-                            <!-- END Menú Item -->
+                                    <!-- END Menú Item -->
+                                    ';
+                                }
+                            ?>
 
                         </div>
                     </div>

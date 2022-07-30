@@ -12,9 +12,9 @@ class Pago extends BaseController{
         $data['logged_in'] = $this->session->logged_in;
         $data['nombre'] = $this->session->nombre;
         if ($data['logged_in'] == 1) {
-
+            
             $data['cartera'] = $this->carteraModel->_getDataTableCartera($this->session->idempresa);
-
+            $data['idempresa'] = $this->session->idempresa;
             $data['version'] = $this->system_version;
             $data['title']='Cobros';
             $data['main_content']='cobros/form_cartera';
@@ -31,6 +31,7 @@ class Pago extends BaseController{
         $data['nombre'] = $this->session->nombre;
         if ($data['logged_in'] == 1) {
 
+            $data['idempresa'] = $this->session->idempresa;
             $data['idcartera'] = $idcartera;
             $data['deuda'] = $this->carteraModel->_getDataDeuda($idcartera);
 
@@ -50,6 +51,7 @@ class Pago extends BaseController{
         $data['nombre'] = $this->session->nombre;
         if ($data['logged_in'] == 1) {
 
+            $data['idempresa'] = $this->session->idempresa;
             $data['idcartera'] = $idcartera;
             $data['deuda'] = $this->carteraModel->_getDataDeuda($idcartera);
 

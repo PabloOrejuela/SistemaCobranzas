@@ -18,6 +18,7 @@ class Cartera extends BaseController{
 
             $sessiondata = ['idempresa' => $data['idempresa']];
             $this->session->set($sessiondata);
+            $this->idempresa = $data['idempresa'];
 
             $data['cartera'] = $this->carteraModel->_getDataTableCartera($data['idempresa']);
 
@@ -37,7 +38,7 @@ class Cartera extends BaseController{
         $data['nombre'] = $this->session->nombre;
 
         if ($data['logged_in'] == 1) {
-
+            $data['idempresa'] = $this->session->idempresa;
             $data['version'] = $this->system_version;
             $data['title']='Cartera';
             $data['main_content']='cartera/frm_subirExcel';
@@ -53,6 +54,7 @@ class Cartera extends BaseController{
         $data['logged_in'] = $this->session->logged_in;
         $data['nombre'] = $this->session->nombre;
         if ($data['logged_in'] == 1) {
+            $data['idempresa'] = $this->session->idempresa;
             $data['version'] = $this->system_version;
             $data['title']='Cartera';
 
