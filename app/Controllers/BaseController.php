@@ -16,6 +16,7 @@ use App\Models\ClienteModel;
 use App\Models\PagoModel;
 use App\Models\CarteraModel;
 use App\Models\EmpresaModel;
+use App\Models\SeguimientoModel;
 
 
 /**
@@ -63,6 +64,7 @@ abstract class BaseController extends Controller {
         $this->pagoModel = new PagoModel($this->db);
         $this->clienteModel = new ClienteModel($this->db);
         $this->empresaModel = new EmpresaModel($this->db);
+        $this->seguimientoModel = new SeguimientoModel($this->db);
 
         // E.g.: $this->session = \Config\Services::session();
         $this->session = \Config\Services::session();

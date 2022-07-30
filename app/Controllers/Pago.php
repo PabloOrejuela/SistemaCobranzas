@@ -103,6 +103,8 @@ class Pago extends BaseController{
 
             $registro = array(
                 'observacion' => $this->request->getPostGet('observacion'),
+                'idcartera' => $this->request->getPostGet('idcartera'),
+                'idusuario' => $this->session->idusuario,
             );
             //echo '<pre>'.var_export($registro, true).'</pre>';exit;
             $this->validation->setRuleGroup('visita');
@@ -112,9 +114,9 @@ class Pago extends BaseController{
                 //dd($this->validation->getErrors());
                 return redirect()->back()->withInput()->with('errors', $this->validation->getErrors());
             }else{
-                $registro['idusuario'] = $this->session->idusuario;
+
                 //echo '<pre>'.var_export($data, true).'</pre>';
-                $r = $this->pagoModel->save($registro);
+                $r = $this->seguimientoModel->save($registro);
                 //echo '<pre>'.var_export($r, true).'</pre>';
                 return redirect()->to('/cobros');
             }
