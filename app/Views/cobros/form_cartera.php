@@ -23,6 +23,7 @@
                             <th>Comisión</th>
                             <th>Total</th>
                             <th>Reg. Pago</th>
+                            <th>Reg. Visita</th>
                         </thead>
                     <?php 
                         //echo '<pre>'.var_export($cartera, true).'</pre>';exit;
@@ -47,6 +48,11 @@
                                                 <img src="'.site_url().'public/img/pay_cash.svg" id="img-button"/>
                                             </a>
                                         </td>'; 
+                                echo '<td>
+                                        <a href="'.site_url().'form_visita/'.$value->idcartera.'" >
+                                            <img src="'.site_url().'public/img/visit.png" id="img-button"/>
+                                        </a>
+                                    </td>'; 
                                 echo  '</tr>';
                             }
                         }else{

@@ -24,24 +24,6 @@ class Pago extends BaseController{
         }
     }
 
-    public function visita(){
-        $data['idrol'] = $this->session->idrol;
-        $data['idusuario'] = $this->session->idusuario;
-        $data['logged_in'] = $this->session->logged_in;
-        $data['nombre'] = $this->session->nombre;
-        if ($data['logged_in'] == 1) {
-
-            $data['cartera'] = $this->carteraModel->_getDataTableCartera($this->session->idempresa);
-
-            $data['version'] = $this->system_version;
-            $data['title']='Cobros';
-            $data['main_content']='cobros/form_cartera';
-            return view('includes/template', $data);
-        }else{
-            $this->logout();
-        }
-    }
-
     public function form_pago($idcartera){
         $data['idrol'] = $this->session->idrol;
         $data['idusuario'] = $this->session->idusuario;
@@ -55,6 +37,25 @@ class Pago extends BaseController{
             $data['version'] = $this->system_version;
             $data['title']='Cobros';
             $data['main_content']='cobros/form_pago';
+            return view('includes/template', $data);
+        }else{
+            $this->logout();
+        }
+    }
+
+    public function form_visita($idcartera){
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+        if ($data['logged_in'] == 1) {
+
+            $data['idcartera'] = $idcartera;
+            $data['deuda'] = $this->carteraModel->_getDataDeuda($idcartera);
+
+            $data['version'] = $this->system_version;
+            $data['title']='Registra Visita';
+            $data['main_content']='cobros/form_visita';
             return view('includes/template', $data);
         }else{
             $this->logout();
@@ -92,6 +93,36 @@ class Pago extends BaseController{
             $this->logout();
         }
     }
+
+    public function insert_visita(){
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+        if ($data['logged_in'] == 1) {
+
+            $registro = array(
+                'observacion' => $this->request->getPostGet('observacion'),
+            );
+            //echo '<pre>'.var_export($registro, true).'</pre>';exit;
+            $this->validation->setRuleGroup('visita');
+        
+            if (!$this->validation->withRequest($this->request)->run()) {
+                //Depuración
+                //dd($this->validation->getErrors());
+                return redirect()->back()->withInput()->with('errors', $this->validation->getErrors());
+            }else{
+                $registro['idusuario'] = $this->session->idusuario;
+                //echo '<pre>'.var_export($data, true).'</pre>';
+                $r = $this->pagoModel->save($registro);
+                //echo '<pre>'.var_export($r, true).'</pre>';
+                return redirect()->to('/cobros');
+            }
+        }else{
+            $this->logout();
+        }
+    }
+    
 
     public function logout(){
         //destruyo la session  y salgo

@@ -49,9 +49,10 @@ $routes->get('nuevo_usuario', 'Usuario::nuevo_usuario');
 $routes->post('/recibe_nuevo_usuario', 'Usuario::recibe_nuevo_usuario');
 
 $routes->get('cobros', 'Pago::index');
-$routes->get('visita', 'Pago::visita');
+$routes->get('/form_visita/(:num)', 'Pago::form_visita/$1');
 $routes->get('/form_pago/(:num)', 'Pago::form_pago/$1');
 $routes->post('/insertPago', 'Pago::insertPago');
+$routes->post('/insert_visita', 'Pago::insert_visita');
 
 $routes->get('/reportes', 'Reportes::index');
 $routes->get('/form_reporte_cobro/(:num)', 'Reportes::form_reporte_cobro/$1');

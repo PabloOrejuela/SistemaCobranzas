@@ -81,8 +81,7 @@
                                 </a>
                                 <div class="collapse" id="pagesCollapseAuthCobros" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="<?= site_url(); ?>visita">Registrar visita al Cliente</a>
-                                        <a class="nav-link" href="<?= site_url(); ?>cobros">Registrar un cobro</a>
+                                        <a class="nav-link" href="<?= site_url(); ?>cobros">Registrar un cobro o visita</a>
                                     </nav>
                                 </div>
                             </nav>

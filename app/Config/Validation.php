@@ -115,4 +115,14 @@ class Validation extends BaseConfig {
             'greater_than' => 'El campo "Método de pago" no es válido',
         ]
     ];
+
+    public $visita = [
+        'observacion'  => 'required',
+    ];
+
+    public $visita_errors = [
+        'observacion' => [
+            'required' => 'El campo "Observación" es obligatorio'
+        ]
+    ];
 }
