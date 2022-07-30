@@ -32,7 +32,7 @@
                             foreach ($cartera as $key => $value) {
                             
                                 echo '<tr>
-                                        <td>'.$value->nombre.'</td>
+                                        <td><a href="'.site_url().'cliente_resumen/'.$value->idcartera.'">'.$value->nombre.'</a></td>
                                         <td>'.$value->cedula.'</td>
                                         <td>'.$value->fecha_emision.'</td>
                                         <td>'.$value->fecha_culminacion.'</td>

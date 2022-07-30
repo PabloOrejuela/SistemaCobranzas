@@ -56,6 +56,8 @@ $routes->get('/reportes', 'Reportes::index');
 $routes->get('/form_reporte_cobro/(:num)', 'Reportes::form_reporte_cobro/$1');
 $routes->post('/reporteCobrosUsuarioFechas', 'Reportes::reporteCobrosUsuarioFechas');
 
+$routes->get('cliente_resumen/(:num)', 'Cliente::resumen/1');
+
 
 /*
  * --------------------------------------------------------------------

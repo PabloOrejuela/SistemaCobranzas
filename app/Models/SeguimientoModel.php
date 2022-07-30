@@ -4,19 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ClienteModel extends Model
-{
+class SeguimientoModel extends Model {
+
     protected $DBGroup          = 'default';
-    protected $table            = 'clientes';
-    protected $primaryKey       = 'id';
+    protected $table            = 'seguimientos';
+    protected $primaryKey       = 'idseguimiento';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        'nombre','cedula', 'estado_civil', 'calificacion','direccion','dir_trabajo','telefono_domicilio','telefono_trabajo'
-    ];
+    protected $allowedFields    = ['idusuario', 'idcartera', 'observacion'];
 
     // Dates
     protected $useTimestamps = false;
@@ -41,6 +39,4 @@ class ClienteModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-
-    
 }
