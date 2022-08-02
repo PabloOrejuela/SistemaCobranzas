@@ -56,4 +56,20 @@ class PagoModel extends Model {
             return $dataTable;
         }
     }
+
+    function _getDataCobrosCartera($idcartera){
+        $builder = $this->db->table('pagos');
+        $builder->select('*');
+        $builder->where('pagos.idcartera', $idcartera);
+        $builder->join('metodo_pago', 'metodo_pago.idmetodo_pago = pagos.idmetodo_pago');
+        $builder->join('cartera', 'cartera.idcartera = pagos.idcartera');
+        $builder->orderBy('pagos.created_at', 'ASC');
+        $query = $builder->get();
+        if ($query->getResult() != null) {
+            foreach ($query->getResult() as $row) {
+                $dataTable[] = $row;
+            }
+            return $dataTable;
+        }
+    }
 }

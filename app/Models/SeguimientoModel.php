@@ -44,8 +44,7 @@ class SeguimientoModel extends Model {
         $builder = $this->db->table('seguimientos');
         $builder->select('*');
         $builder->where('seguimientos.idcartera', $idcartera);
-        $builder->join('pagos', 'pagos.idcartera = seguimientos.idcartera', 'full');
-        $builder->join('cartera', 'cartera.idcartera = pagos.idcartera');
+        $builder->join('cartera', 'cartera.idcartera = seguimientos.idcartera');
         $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
         $query = $builder->get();
         //echo $this->db->getLastQuery();

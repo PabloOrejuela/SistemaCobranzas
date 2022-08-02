@@ -6,75 +6,117 @@
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fa-solid fa-file-invoice-dollar"></i>
-                    <?= esc($title); ?>
+                    <?= esc("Datos del cliente"); ?>
                 </div>
                 <div class="card-body" id="card-body-seguimiento">
-                        <div class="mb-3 row">
-                            <label for="nombre" class="col-sm-2 col-form-label">Nombre: </label>
+                    <div class="mb-3 row">
+                        <label for="nombre" class="col-sm-2 col-form-label">Nombre: </label>
+                        <div class="col-sm-6">
+                            <input type="text" readonly class="form-control" id="card-body-seguimiento" value="<?= $cliente[0]->nombre ?>">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="nombre" class="col-sm-2 col-form-label">Cedula: </label>
                             <div class="col-sm-6">
-                                <input type="text" readonly class="form-control" id="card-body-seguimiento" value="<?= $cliente[0]->nombre ?>">
-                            </div>
+                            <input type="text" readonly class="form-control" id="card-body-seguimiento" value="<?= $cliente[0]->cedula ?>">
                         </div>
-                        <div class="mb-3 row">
-                            <label for="nombre" class="col-sm-2 col-form-label">Cedula: </label>
-                                <div class="col-sm-6">
-                                <input type="text" readonly class="form-control" id="card-body-seguimiento" value="<?= $cliente[0]->cedula ?>">
-                            </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="nombre" class="col-sm-2 col-form-label">Dirección: </label>
+                        <div class="col-sm-6">
+                            <input type="text" readonly class="form-control" id="card-body-seguimiento" value="<?= $cliente[0]->direccion; ?>">
                         </div>
-                        <div class="mb-3 row">
-                            <label for="nombre" class="col-sm-2 col-form-label">Dirección: </label>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="nombre" class="col-sm-2 col-form-label">Teléfono domicilio: </label>
                             <div class="col-sm-6">
-                                <input type="text" readonly class="form-control" id="card-body-seguimiento" value="<?= $cliente[0]->direccion ?>">
-                            </div>
+                            <input type="text" readonly class="form-control" id="card-body-seguimiento" value="<?= $cliente[0]->telefono_domicilio; ?>">
                         </div>
-                        <div class="mb-3 row">
-                            <label for="nombre" class="col-sm-2 col-form-label">Teléfono domicilio: </label>
-                                <div class="col-sm-6">
-                                <input type="text" readonly class="form-control" id="card-body-seguimiento" value="<?= $cliente[0]->telefono_domicilio ?>">
-                            </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="nombre" class="col-sm-2 col-form-label">Teléfono trabajo: </label>
+                            <div class="col-sm-6">
+                            <input type="text" readonly class="form-control" id="card-body-seguimiento" value="<?= $cliente[0]->telefono_trabajo; ?>">
                         </div>
-                        <div class="mb-3 row">
-                            <label for="nombre" class="col-sm-2 col-form-label">Teléfono trabajo: </label>
-                                <div class="col-sm-6">
-                                <input type="text" readonly class="form-control" id="card-body-seguimiento" value="<?= $cliente[0]->telefono_trabajo ?>">
-                            </div>
-                        </div>
-                    
-                    <table class="table table-bordered table-striped table-hover mt-5" id="datatablesSimple">
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <?= esc("Seguimiento"); ?>
+                </div>
+                <div class="card-body" id="card-body-seguimiento">
+                    <table class="table table-bordered table-striped table-hover mt-5">
                         <thead>
                             <th>Cliente</th>
-                            <th>Cédula</th>
-                            <th>Fecha Emisión</th>
-                            <th>Fecha culminación</th>
-                            <th>Saldo</th>
-                            <th>Cuota</th>
-                            <th>Cant. Cuotas</th>
-                            <th>Cuotas canceladas</th>
-                            <th>Tasa Int.</th>
-                            <th>Tasa Mora</th>
-                            <th>Subtotal</th>
-                            <th>Comisión</th>
-                            <th>Coactiva</th>
-                            <th>Total</th>
+                            <th>Fecha</th>
+                            <th>Observación</th>
                         </thead>
                         <?php 
-                            if (isset($cliente) && $cliente !== NULL) {
-                                foreach ($cliente as $key => $value) {
+                            if (isset($seguimiento) && $seguimiento !== NULL) {
+                                foreach ($seguimiento as $key => $value) {
                                 
                                     echo '<tr>
-                                            <td><a href="'.site_url().'cliente_resumen/'.$value->idcartera.'">'.$value->nombre.'</a></td>
-                                            <td></td>
-                                            <td></td>  
+                                            <td>'.$value->nombre.'</td>
+                                            <td>'.$value->created_at.'</td>
+                                            <td>'.$value->observacion.'</td>
                                         ';
                                     
                                     echo '</tr>';
-                                    echo '<tr><td>Página renderizada en {elapsed_time} segundos</td></tr>';
+                                    
                                 }
+                                //echo '<tr><td>Página renderizada en {elapsed_time} segundos</td></tr>';
                             }else{
                                 echo   '<td colspan="14">NO HAY DATOS</td>';  
 
                             }
                             
+                            
+                        ?>  
+                    </table>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <?= esc("Cobros"); ?>
+                </div>
+                <div class="card-body" id="card-body-seguimiento">
+                    <table class="table table-bordered table-striped table-hover mt-5">
+                        <thead>
+                            <th>Fecha</th>
+                            <th>Abono</th>
+                            <th>Método pago</th>
+                            <th>Documento</th>
+                            <th>Subtotal</th>
+                        </thead>
+                        <?php 
+                            if (isset($cobros) && $cobros !== NULL) {
+                                $saldo = $cliente[0]->total;
+                               
+                                foreach ($cobros as $key => $value) {
+                                    $saldo -= $value->abono; 
+                                
+                                    echo '<tr>
+                                            <td>'.$value->created_at.'</td>
+                                            <td>'.$value->abono.'</td>
+                                            <td>'.$value->metodo_pago.'</td>
+                                            <td>'.$value->documento.'</td>
+                                            <td style="text-align:right;">$ '.number_format($value->abono, 2).'</td>
+                                        ';
+                                    
+                                    echo '</tr>';
+                                    
+                                }
+                                echo '<tr><td colspan="5"></td></tr>';
+                                echo '<tr><td colspan="4" style="text-align:right;font-weight:bold;">MONTO:</td><td  style="text-align:right;">$ '.number_format($cliente[0]->total, 2).'</td></tr>';
+                                echo '<tr><td colspan="4" style="text-align:right;font-weight:bold;">SALDO:</td><td  style="text-align:right;">$ '.number_format($saldo, 2).'</td></tr>';
+                            }else{
+                                echo   '<td colspan="14">NO HAY DATOS</td>';  
+
+                            }
+                            //echo '<tr><td>Página renderizada en {elapsed_time} segundos</td></tr>';
                             
                         ?>  
                     </table>

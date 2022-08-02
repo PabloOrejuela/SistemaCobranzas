@@ -23,7 +23,8 @@ class Cliente extends BaseController {
             $data['idempresa'] = $this->session->idempresa;
             $data['version'] = $this->system_version;
             $data['cliente'] = $this->clienteModel->_getDataCliente($idcartera);
-            $data['resumen'] = $this->seguimientoModel->where('idcartera', $idcartera)->findAll();
+            $data['seguimiento'] = $this->seguimientoModel->_getDataSeguimiento($idcartera);
+            $data['cobros'] = $this->pagoModel->_getDataCobrosCartera($idcartera);
             //echo $this->db->getLastQuery();
             //echo '<pre>'.var_export($data['cliente'], true).'</pre>';exit;
 
