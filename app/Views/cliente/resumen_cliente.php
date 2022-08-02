@@ -39,15 +39,6 @@
                             <input type="text" readonly class="form-control" id="card-body-seguimiento" value="<?= $cliente[0]->telefono_trabajo; ?>">
                         </div>
                     </div>
-                    <div class="mb-3 row">
-                        <label for="nombre" class="col-sm-2 col-form-label">Reporte de cobros: </label>
-                            <div class="col-sm-6">
-                            <?php 
-                                echo '<a href="'.site_url().'resumen_cobros_pdf/'.$cliente[0]->idcartera.'" target="_blank">
-                                        <i class="fa-solid fa-print"></i> Imprimir reporte</a>'; 
-                            ?>
-                            </div>
-                    </div>
                 </div>
             </div>
             <div class="card mb-4">
@@ -56,6 +47,15 @@
                     <?= esc("Seguimiento"); ?>
                 </div>
                 <div class="card-body" id="card-body-seguimiento">
+                    <div class="mb-3 row">
+                        <label for="nombre" class="col-sm-2 col-form-label">Reporte de seguimiento: </label>
+                            <div class="col-sm-6">
+                            <?php 
+                                echo '<a href="'.site_url().'reporte_seguimiento/'.$cliente[0]->idcartera.'" target="_blank">
+                                        <i class="fa-solid fa-print"></i> Imprimir reporte</a>'; 
+                            ?>
+                            </div>
+                    </div>
                     <table class="table table-bordered table-striped table-hover mt-5" id="datatablesResumen">
                         <thead>
                             <th>Fecha</th>
@@ -93,6 +93,15 @@
                     
                 </div>
                 <div class="card-body" id="card-body-seguimiento">
+                    <div class="mb-3 row">
+                        <label for="nombre" class="col-sm-2 col-form-label">Reporte de Cobros: </label>
+                            <div class="col-sm-6">
+                            <?php 
+                                echo '<a href="'.site_url().'reporte_cobros/'.$cliente[0]->idcartera.'" target="_blank">
+                                        <i class="fa-solid fa-print"></i> Imprimir reporte</a>'; 
+                            ?>
+                            </div>
+                    </div>
                     <table class="table table-bordered table-striped table-hover mt-5" id="datatablesResumen">
                         <thead>
                             <th>Fecha</th>

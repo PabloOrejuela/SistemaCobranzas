@@ -25,10 +25,8 @@ class Cliente extends BaseController {
             $data['cliente'] = $this->clienteModel->_getDataCliente($idcartera);
             $data['seguimiento'] = $this->seguimientoModel->_getDataSeguimiento($idcartera);
             $data['cobros'] = $this->pagoModel->_getDataCobrosCartera($idcartera);
-            //echo $this->db->getLastQuery();
             //echo '<pre>'.var_export($data['cliente'], true).'</pre>';exit;
 
-            //echo '<pre>'.var_export($data['cliente'], true).'</pre>';
             $data['title']='Resumen del seguimiento al Cliente';
             $data['main_content']='cliente/resumen_cliente';
             return view('includes/template', $data);

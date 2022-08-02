@@ -47,6 +47,7 @@ class ClienteModel extends Model
         $builder->select('*');
         $builder->where('cartera.idcartera', $idcartera);
         $builder->join('cartera', 'cartera.idcliente = clientes.idcliente');
+        $builder->join('empresas', 'empresas.idempresa = cartera.idempresa');
         $query = $builder->get();
         //echo $this->db->getLastQuery();
         if ($query->getResult() != null) {
