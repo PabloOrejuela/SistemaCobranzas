@@ -14,7 +14,6 @@
                             <th>Cliente</th>
                             <th>Cédula</th>
                             <th>Fecha Emisión</th>
-                            <th>Fecha culminación</th>
                             <th>Saldo</th>
                             <th>Cuota</th>
                             <th>Cant. Cuotas</th>
@@ -35,7 +34,6 @@
                                         <td><a href="'.site_url().'cliente_resumen/'.$value->idcartera.'">'.$value->nombre.'</a></td>
                                         <td>'.$value->cedula.'</td>
                                         <td>'.$value->fecha_emision.'</td>
-                                        <td>'.$value->fecha_culminacion.'</td>
                                         <td>'.$value->saldo_fecha.'</td>
                                         <td>'.$value->valor_cuota.'</td>
                                         <td>'.$value->cuotas_cancelar.'</td>
@@ -49,8 +47,9 @@
                                     ';
                                 
                                 echo '</tr>';
-                                echo '<tr><td>Página renderizada en {elapsed_time} segundos</td></tr>';
+                                
                             }
+                            echo '<tr><td>Página renderizada en {elapsed_time} segundos</td></tr>';
                         }else{
                             echo   '<td colspan="14">NO HAY DATOS</td>';  
 

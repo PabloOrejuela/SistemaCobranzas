@@ -22,7 +22,12 @@ class Cliente extends BaseController {
             # Traigo todas las visitas que le han hecho y los pagos
             $data['idempresa'] = $this->session->idempresa;
             $data['version'] = $this->system_version;
-            
+            $data['cliente'] = $this->clienteModel->_getDataCliente($idcartera);
+            $data['resumen'] = $this->seguimientoModel->where('idcartera', $idcartera)->findAll();
+            //echo $this->db->getLastQuery();
+            //echo '<pre>'.var_export($data['cliente'], true).'</pre>';exit;
+
+            //echo '<pre>'.var_export($data['cliente'], true).'</pre>';
             $data['title']='Resumen del seguimiento al Cliente';
             $data['main_content']='cliente/resumen_cliente';
             return view('includes/template', $data);

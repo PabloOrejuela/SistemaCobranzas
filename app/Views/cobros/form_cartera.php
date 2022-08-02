@@ -54,8 +54,9 @@
                                         </a>
                                     </td>'; 
                                 echo  '</tr>';
-                                echo '<tr><td>Página renderizada en {elapsed_time} segundos</td></tr>';
+                                
                             }
+                            echo '<tr><td>Página renderizada en {elapsed_time} segundos</td></tr>';
                         }else{
                             echo   '<td colspan="14">NO HAY DATOS</td>';  
 

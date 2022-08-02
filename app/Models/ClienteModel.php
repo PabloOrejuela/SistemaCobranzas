@@ -8,7 +8,7 @@ class ClienteModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'clientes';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'idcliente';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'object';
@@ -42,5 +42,20 @@ class ClienteModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    function _getDataCliente($idcartera){
+        $builder = $this->db->table('clientes');
+        $builder->select('*');
+        $builder->where('cartera.idcartera', $idcartera);
+        $builder->join('cartera', 'cartera.idcliente = clientes.idcliente');
+        $query = $builder->get();
+        //echo $this->db->getLastQuery();
+        if ($query->getResult() != null) {
+            foreach ($query->getResult() as $row) {
+                $dataTable[] = $row;
+            }
+            
+            return $dataTable;
+        }
+    }
     
 }

@@ -4564,6 +4564,10 @@ textarea.form-control-lg {
   padding: 1rem 1rem;
 }
 
+#card-body-seguimiento {
+  font-size: 0.9em;
+}
+
 .card-title {
   margin-bottom: 0.5rem;
 }

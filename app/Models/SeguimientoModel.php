@@ -39,4 +39,22 @@ class SeguimientoModel extends Model {
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    function _getDataSeguimiento($idcartera){
+        $builder = $this->db->table('seguimientos');
+        $builder->select('*');
+        $builder->where('seguimientos.idcartera', $idcartera);
+        $builder->join('pagos', 'pagos.idcartera = seguimientos.idcartera', 'full');
+        $builder->join('cartera', 'cartera.idcartera = pagos.idcartera');
+        $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
+        $query = $builder->get();
+        //echo $this->db->getLastQuery();
+        if ($query->getResult() != null) {
+            foreach ($query->getResult() as $row) {
+                $dataTable[] = $row;
+            }
+            
+            return $dataTable;
+        }
+    }
 }
