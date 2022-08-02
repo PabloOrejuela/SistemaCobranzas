@@ -39,6 +39,15 @@
                             <input type="text" readonly class="form-control" id="card-body-seguimiento" value="<?= $cliente[0]->telefono_trabajo; ?>">
                         </div>
                     </div>
+                    <div class="mb-3 row">
+                        <label for="nombre" class="col-sm-2 col-form-label">Reporte de cobros: </label>
+                            <div class="col-sm-6">
+                            <?php 
+                                echo '<a href="'.site_url().'resumen_cobros_pdf/'.$cliente[0]->idcartera.'" target="_blank">
+                                        <i class="fa-solid fa-print"></i> Imprimir reporte</a>'; 
+                            ?>
+                            </div>
+                    </div>
                 </div>
             </div>
             <div class="card mb-4">
@@ -47,10 +56,10 @@
                     <?= esc("Seguimiento"); ?>
                 </div>
                 <div class="card-body" id="card-body-seguimiento">
-                    <table class="table table-bordered table-striped table-hover mt-5">
+                    <table class="table table-bordered table-striped table-hover mt-5" id="datatablesResumen">
                         <thead>
-                            <th>Cliente</th>
                             <th>Fecha</th>
+                            <th>Cobrador</th>
                             <th>Observación</th>
                         </thead>
                         <?php 
@@ -58,8 +67,8 @@
                                 foreach ($seguimiento as $key => $value) {
                                 
                                     echo '<tr>
+                                            <td>'.$value->fecha.'</td>
                                             <td>'.$value->nombre.'</td>
-                                            <td>'.$value->created_at.'</td>
                                             <td>'.$value->observacion.'</td>
                                         ';
                                     
@@ -80,10 +89,11 @@
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fa-solid fa-file-invoice-dollar"></i>
-                    <?= esc("Cobros"); ?>
+                    <?= esc('Cobros'); ?>
+                    
                 </div>
                 <div class="card-body" id="card-body-seguimiento">
-                    <table class="table table-bordered table-striped table-hover mt-5">
+                    <table class="table table-bordered table-striped table-hover mt-5" id="datatablesResumen">
                         <thead>
                             <th>Fecha</th>
                             <th>Abono</th>
@@ -94,12 +104,12 @@
                         <?php 
                             if (isset($cobros) && $cobros !== NULL) {
                                 $saldo = $cliente[0]->total;
-                               
+                               //echo '<pre>'.var_export($cliente[0], true).'</pre>';exit;
                                 foreach ($cobros as $key => $value) {
                                     $saldo -= $value->abono; 
                                 
                                     echo '<tr>
-                                            <td>'.$value->created_at.'</td>
+                                            <td>'.$value->fecha.'</td>
                                             <td>'.$value->abono.'</td>
                                             <td>'.$value->metodo_pago.'</td>
                                             <td>'.$value->documento.'</td>

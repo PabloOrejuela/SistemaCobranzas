@@ -42,10 +42,12 @@ class SeguimientoModel extends Model {
 
     function _getDataSeguimiento($idcartera){
         $builder = $this->db->table('seguimientos');
-        $builder->select('*');
+        $builder->select('seguimientos.created_at as fecha, nombre, observacion');
         $builder->where('seguimientos.idcartera', $idcartera);
         $builder->join('cartera', 'cartera.idcartera = seguimientos.idcartera');
-        $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
+        $builder->join('usuarios', 'usuarios.idusuario = seguimientos.idusuario');
+        $builder->orderBy('seguimientos.created_at', 'ASC');
+        //$builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
         $query = $builder->get();
         //echo $this->db->getLastQuery();
         if ($query->getResult() != null) {
