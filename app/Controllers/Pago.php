@@ -117,10 +117,10 @@ class Pago extends BaseController{
                 return redirect()->back()->withInput()->with('errors', $this->validation->getErrors());
             }else{
 
-                //echo '<pre>'.var_export($data, true).'</pre>';
+                //echo '<pre>'.var_export($registro, true).'</pre>';
                 $r = $this->seguimientoModel->save($registro);
                 //echo '<pre>'.var_export($r, true).'</pre>';
-                return redirect()->to('/cobros');
+                return redirect()->to('cobros');
             }
         }else{
             $this->logout();
