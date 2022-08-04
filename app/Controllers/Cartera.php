@@ -81,7 +81,7 @@ class Cartera extends BaseController{
             $data['idempresa'] = $this->session->idempresa;
             $data['version'] = $this->system_version;
             $data['title']='Cartera';
-            $data['idempresa'] = $this->request->getPostGet('idempresa');
+            $idempresa = $this->request->getPostGet('idempresa');
 
             $tipo = $_FILES['tablaCartera']['type'];
             $size = $_FILES['tablaCartera']['size'];
@@ -141,7 +141,7 @@ class Cartera extends BaseController{
                                 'comision' => $datos[56],
                                 'coactiva' => $datos[57],
                                 'total' => $datos[58],
-                                'idcartera' => $data['idempresa']
+                                'idempresa' => $idempresa
                             );
                             $this->carteraModel->save($registro);
                         }else{
@@ -161,7 +161,7 @@ class Cartera extends BaseController{
                                 'comision' => $datos[56],
                                 'coactiva' => $datos[57],
                                 'total' => $datos[58],
-                                'idcartera' => $data['idempresa']
+                                'idempresa' => $idempresa
                             );
                             $this->carteraModel->save($registro);
                         }
