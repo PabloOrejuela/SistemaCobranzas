@@ -14,9 +14,9 @@ class CarteraModel extends Model {
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'idcliente','fecha_emision','fecha_culminacion','saldo_fecha','valor_cuota',
+        'idcliente','fecha_emision','credito', 'fecha_culminacion','saldo_fecha','valor_cuota',
         'cuotas_cancelar','cuotas_canceladas','tasa_interes','tasa_mora','subtotal',
-        'comision','coactiva','total',
+        'comision','coactiva','total','idempresa',
     ];
 
     // Dates

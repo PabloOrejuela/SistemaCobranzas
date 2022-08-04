@@ -4,8 +4,8 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ClienteModel extends Model
-{
+class ClienteModel extends Model {
+
     protected $DBGroup          = 'default';
     protected $table            = 'clientes';
     protected $primaryKey       = 'idcliente';
@@ -58,5 +58,23 @@ class ClienteModel extends Model
             return $dataTable;
         }
     }
+
+    function _getClienteId($cedula){echo $cedula;
+        $idcliente = 0;
+        $builder = $this->db->table('clientes');
+        $builder->select('idcliente');
+        $builder->where('cedula', $cedula);
+        $query = $builder->get();
+        echo $this->db->getLastQuery();
+        if ($query->getResult() != null) {
+            foreach ($query->getResult() as $row) {
+                $idcliente = $row->idcliente;
+            }
+            
+        }
+        return $idcliente;
+    }
+
+
     
 }

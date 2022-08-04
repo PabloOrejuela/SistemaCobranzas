@@ -63,6 +63,7 @@ class Cartera extends BaseController{
         if ($data['logged_in'] == 1) {
             $data['idempresa'] = $this->session->idempresa;
             $data['version'] = $this->system_version;
+            $data['empresas'] = $this->empresaModel->findAll();
             $data['title']='Cartera';
             $data['main_content']='cartera/frm_subirExcel';
             return view('includes/template', $data);
@@ -80,6 +81,7 @@ class Cartera extends BaseController{
             $data['idempresa'] = $this->session->idempresa;
             $data['version'] = $this->system_version;
             $data['title']='Cartera';
+            $data['idempresa'] = $this->request->getPostGet('idempresa');
 
             $tipo = $_FILES['tablaCartera']['type'];
             $size = $_FILES['tablaCartera']['size'];
@@ -98,49 +100,75 @@ class Cartera extends BaseController{
                 foreach ($filas as $key => $fila) {
                     if ($key != 0) {
                         $datos = explode(";", $fila);
-
-                        if ($datos[5] == 'SOLTERO') {
+                        
+                        if ($datos[6] == 'SOLTERO') {
                             $idestado_civil = 1;
-                        }elseif ($datos[5] == 'CASADO') {
+                        }else if ($datos[6] == 'CASADO') {
                             $idestado_civil = 2;
-                        }elseif ($datos[5] == 'DIVORCIADO') {
+                        }else if ($datos[6] == 'DIVORCIADO') {
                             $idestado_civil = 3;
                         }else{
                             $idestado_civil = 4;
                         }
-
+                        
                         $cliente = array(
                             'nombre' => trim($datos[4]),
-                            'cedula' => $datos[3],
+                            'cedula' => trim($datos[3]),
                             'idestado_civil' => $idestado_civil,
-                            'calificacion' => $datos[17],
-                            'direccion' => trim($datos[29]),
-                            'dir_trabajo' => trim($datos[30]),
-                            'telefono_domicilio' => $datos[31],
-                            'telefono_trabajo' => $datos[32],
+                            'calificacion' => trim($datos[18]),
+                            'direccion' => trim($datos[30]),
+                            'dir_trabajo' => trim($datos[31]),
+                            'telefono_domicilio' => trim($datos[32]),
+                            'telefono_trabajo' => trim($datos[33]),
                         );
+                        $exist = $this->clienteModel->_getClienteId($cliente['cedula']);
 
-                        $this->clienteModel->save($cliente);
-                        $idcliente = $this->db->insertID();
+                        if ($exist == 0) {
+                            $this->clienteModel->save($cliente);
+                            $idcliente = $this->db->insertID();
+                            $registro = array(
+                                'idcliente' => $idcliente,
+                                'credito' => $datos[5],
+                                'fecha_emision' => $datos[9],
+                                'fecha_culminacion' => $datos[10],
+                                'saldo_fecha' => $datos[19],
+                                'valor_cuota' => $datos[20],
+                                'cuotas_cancelar' => $datos[21],
+                                'cuotas_canceladas' => $datos[22],
+                                'tasa_interes' => $datos[14],
+                                'tasa_mora' => $datos[15],
+                                'subtotal' => $datos[55],
+                                'comision' => $datos[56],
+                                'coactiva' => $datos[57],
+                                'total' => $datos[58],
+                                'idcartera' => $data['idempresa']
+                            );
+                            $this->carteraModel->save($registro);
+                        }else{
+                            $idcliente = $exist;
+                            $registro = array(
+                                'idcliente' => $idcliente,
+                                'credito' => $datos[5],
+                                'fecha_emision' => $datos[9],
+                                'fecha_culminacion' => $datos[10],
+                                'saldo_fecha' => $datos[19],
+                                'valor_cuota' => $datos[20],
+                                'cuotas_cancelar' => $datos[21],
+                                'cuotas_canceladas' => $datos[22],
+                                'tasa_interes' => $datos[14],
+                                'tasa_mora' => $datos[15],
+                                'subtotal' => $datos[55],
+                                'comision' => $datos[56],
+                                'coactiva' => $datos[57],
+                                'total' => $datos[58],
+                                'idcartera' => $data['idempresa']
+                            );
+                            $this->carteraModel->save($registro);
+                        }
 
-                        $registro = array(
-                            'idcliente' => $idcliente,
-                            'fecha_emision' => $datos[8],
-                            'fecha_culminacion' => $datos[9],
-                            'saldo_fecha' => $datos[18],
-                            'valor_cuota' => $datos[19],
-                            'cuotas_cancelar' => $datos[20],
-                            'cuotas_canceladas' => $datos[21],
-                            'tasa_interes' => $datos[13],
-                            'tasa_mora' => $datos[14],
-                            'subtotal' => $datos[54],
-                            'comision' => $datos[55],
-                            'coactiva' => $datos[56],
-                            'total' => $datos[57],
-                        );
-                        $this->carteraModel->save($registro);
                         //echo '<pre>'.var_export($cliente, true).'</pre>';
                     }
+                    
                 }       
             return redirect()->to('/cartera');
             }
