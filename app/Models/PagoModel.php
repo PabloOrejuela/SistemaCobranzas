@@ -73,4 +73,23 @@ class PagoModel extends Model {
             return $dataTable;
         }
     }
+
+    function _getPagosCooperativa($data){
+        $builder = $this->db->table('pagos');
+        $builder->select('*');
+        $builder->where('idempresa', $data['idempresa']);
+        $builder->where('pagos.created_at >=', $data['date_desde']);
+        //$builder->where('pagos.created_at <=', $data['date_hasta']);
+        $builder->join('metodo_pago', 'metodo_pago.idmetodo_pago = pagos.idmetodo_pago');
+        $builder->join('cartera', 'cartera.idcartera = pagos.idcartera');
+        $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
+        $query = $builder->get();
+        //echo $this->db->getLastQuery();
+        if ($query->getResult() != null) {
+            foreach ($query->getResult() as $row) {
+                $dataTable[] = $row;
+            }
+            return $dataTable;
+        }
+    }
 }

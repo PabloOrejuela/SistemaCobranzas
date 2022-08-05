@@ -65,7 +65,7 @@ class ClienteModel extends Model {
         $builder->select('idcliente');
         $builder->where('cedula', $cedula);
         $query = $builder->get();
-        echo $this->db->getLastQuery();
+        //echo $this->db->getLastQuery();
         if ($query->getResult() != null) {
             foreach ($query->getResult() as $row) {
                 $idcliente = $row->idcliente;

@@ -9,7 +9,7 @@
                     <?= esc("Reporte de cobros por cooperativas"); ?>
                 </div>
                 <div class="card-body"> 
-                    <form action="<?php echo base_url().'/getExcel';?>" method="post" id="form-subir-excel" enctype="multipart/form-data">
+                    <form action="<?php echo base_url().'/get_reporte_cobros_cooperativa';?>" method="post" id="form-subir-excel" enctype="multipart/form-data">
                         <?= csrf_field(); ?>
                         <div class="container mb-5" style="margin-top:30px;">
                             <div class="mb-3 row">
