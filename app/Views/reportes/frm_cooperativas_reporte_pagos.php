@@ -42,13 +42,8 @@
                                 </select>
                                 <p id="error-message"><?= session('errors.idrol');?> </p>
                             </div>
-                            <div class="col-sm-5 mb-3">
-                                <h5>Subir archivo de cartera (.xls)</h5>
-                                <input class="form-control form-control-sm" type="file" name="tablaCartera" id="formFile" value="Subir archivo excel">
-                            </div>
-                            <p id="error-message"><?= session('errors.tablaCartera');?> </p>
                             <div>
-                                <input type="submit" class="btn btn-outline-secondary" value="Subir archivo">
+                                <input type="submit" class="btn btn-outline-secondary" value="Reporte">
                             </div>
                         </div>
                     </form>
