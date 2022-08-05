@@ -61,9 +61,10 @@ $routes->post('/getExcel', 'Pago::getExcel');
 $routes->get('/reportes', 'Reportes::index');
 $routes->get('/form_reporte_cobro/(:num)', 'Reportes::form_reporte_cobro/$1');
 $routes->post('/reporteCobrosUsuarioFechas', 'Reportes::reporteCobrosUsuarioFechas');
-$routes->post('/get_reporte_cobros_cooperativa', 'Reportes::get_reporte_cobros_cooperativa');
 $routes->get('frm_reporte_cobros_cooperativa', 'Reportes::frm_reporte_cobros_cooperativa');
-$routes->get('reporte_cobros_total', 'Reportes::frm_reporte_cobros_total');
+$routes->post('/get_reporte_cobros_cooperativa', 'Reportes::get_reporte_cobros_cooperativa');
+$routes->get('frm_reporte_cobros_total', 'Reportes::frm_reporte_cobros_total');
+$routes->post('/get_reporte_cobros_total', 'Reportes::get_reporte_cobros_total');
 
 $routes->get('cliente_resumen/(:num)', 'Cliente::resumen/$1');
 $routes->get('reporte_cobros/(:num)', 'Reportes::reporte_cobros_pdf/$1');

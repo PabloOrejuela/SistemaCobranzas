@@ -122,7 +122,7 @@
                                                 <a class="nav-link" href="'.site_url().'frm_reporte_cobros_cooperativa">Reporte de pagos por Cooperativa</a>
                                             </nav>
                                             <nav class="sb-sidenav-menu-nested nav">
-                                                <a class="nav-link" href="'.site_url().'reporte_cobros_total">Reporte de pagos total</a>
+                                                <a class="nav-link" href="'.site_url().'frm_reporte_cobros_total">Reporte de pagos total</a>
                                             </nav>
                                         </div>
                                     </nav>

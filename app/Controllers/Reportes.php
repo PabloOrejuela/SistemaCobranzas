@@ -435,6 +435,122 @@ class Reportes extends BaseController {
         
     }
 
+    public function frm_reporte_cobros_total(){
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+
+        if ($data['logged_in'] == 1) {
+
+            $data['idempresa'] = $this->session->idempresa;
+            $data['version'] = $this->system_version;
+            $data['empresas'] = $this->empresaModel->findAll();
+
+            $data['title']='Reportes';
+            $data['main_content']='reportes/frm_cooperativas_reporte_pagos_total';
+            return view('includes/template', $data);
+        }else{
+            $this->logout();
+        }
+    }
+
+    public function get_reporte_cobros_total(){
+        //$data['idempresa'] = $this->session->idempresa;
+        $data = array(
+            'date_desde' => $this->request->getPostGet('date_desde'),
+            'date_hasta' => $this->request->getPostGet('date_hasta'),
+        );
+        //echo '<pre>'.var_export($data, true).'</pre>';
+        $registros = $this->pagoModel->_getPagosTotal($data);
+        $this->pdf_reporte_cobros_total($registros, $data);
+        
+    }
+
+    public function pdf_reporte_cobros_total($registros, $data){
+
+        
+        //$lib = include('tcpdf.php');
+        //echo '<pre>'.var_export($registros, true).'</pre>';
+        $pdf = new TCPDF('L', 'mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
+        $pdf->setFooterData(array(0,64,0), array(0,64,128));
+        $this->response->setHeader('Content-Type', 'application/pdf'); 
+        $pdf->SetMargins(10, 10, 10, 10); 
+        $pdf->SetLineWidth(0.005);
+        $pdf->setCellPaddings(0.8, 0.8, 0.8, 0.8);
+        $pdf->SetFillColor(0,200,250);
+        
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+        $pdf->AddPage(); 
+
+        $html = '<img src="'.site_url().'public/img/cashier.svg" alt="logo" id="logo-report"  width="50" />';
+        //$pdf->image(PDF_HEADER_LOGO, 15, 12, 20, 15, 'jpg', $link = '', $align = '', false, 50, '', false, false, 1, false, false, false);
+        $pdf->writeHTML($html, true, false, true, false, '');
+
+        $pdf->ln(0);
+        $pdf->SetFont('helvetica', 'B', 14);
+        $pdf->Cell(276, 0, 'Reporte General de cobros', 'LTR', 0, 'C', false);
+        
+        $pdf->ln();
+        $pdf->SetFont('helvetica', 'B', 10);
+        $pdf->Cell(15, 0, 'Desde: ', 'L', 0, 'L', false);
+        $pdf->SetFont('helvetica', 'P', 10);
+        $pdf->Cell(21, 0, $data['date_desde'], '', 0, 'R', false);
+        $pdf->Cell(240, 0, '', 'R', 0, 'C', false);
+        $pdf->ln();
+        $pdf->SetFont('helvetica', 'B', 10);
+        $pdf->Cell(15, 0, 'Hasta: ', 'LB', 0, 'L', false);
+        $pdf->SetFont('helvetica', 'P', 10);
+        $pdf->Cell(20, 0, $data['date_hasta'], 'B', 0, 'R', false);
+        $pdf->Cell(241, 0, '', 'BR', 0, 'C', false);
+
+        $pdf->ln(12);
+        $pdf->SetFont('helvetica', 'B', 7.5);
+        $pdf->Cell(5, 0, 'No', 'TLRB', 0, 'L', true);
+        $pdf->Cell(70, 0, 'Cooperativa', 'TLRB', 0, 'C', true);
+        $pdf->Cell(60, 0, 'Nombre', 'TLRB', 0, 'C', true);
+        $pdf->Cell(22, 0, 'Cédula', 'TLRB', 0, 'C', true);
+        $pdf->Cell(30, 0, 'Fecha', 'TLRB', 0, 'C', true);
+        $pdf->Cell(27, 0, 'Método', 'TLRB', 0, 'C', true);
+        $pdf->Cell(42, 0, 'Documento', 'TLRB', 0, 'C', true);
+        $pdf->Cell(20, 0, 'Abono', 'TLRB', 0, 'C', true);
+        
+
+        $n=1;
+        $total = 0;
+
+        if ($registros !== NULL) {
+            foreach ($registros as $value) {
+                $pdf->ln();
+                $pdf->SetFont('helvetica', 'P', 7.5);
+                $pdf->Cell(5, 0, $n, 'TLRB', 0, 'C', false);
+                $pdf->Cell(70, 0, $value->nombre_corto, 'TLRB', 0, 'L', false);
+                $pdf->Cell(60, 0, $value->nombre, 'TLRB', 0, 'L', false);
+                $pdf->Cell(22, 0, $value->cedula, 'TLRB', 0, 'C', false);
+                $pdf->Cell(30, 0, $value->created_at, 'TLRB', 0, 'L', false);
+                $pdf->Cell(27, 0, $value->metodo_pago, 'TLRB', 0, 'R', false);
+                $pdf->Cell(42, 0, $value->documento, 'TLRB', 0, 'R', false);
+                $pdf->Cell(20, 0, '$ '.$value->abono, 'TLRB', 0, 'R', false);
+                $total += $value->abono;
+                $n++;
+            }
+        }else{
+            $pdf->ln();
+            $pdf->SetFont('helvetica', 'P', 9);
+            $pdf->Cell(268, 0, 'El usuario no registra cobros en este período de tiempo', 'TLRB', 0, 'L', false);
+        }
+        $pdf->ln();
+        $pdf->Cell(276, 0, '', 'TLRB', 0, 'R', false);
+        $pdf->ln();
+        $pdf->Cell(256, 0, 'TOTAL: ', 'TLRB', 0, 'R', false);
+        $pdf->Cell(20, 0, '$ '.number_format($total, 2), 'TLRB', 0, 'R', false);
+        //$pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->Output('reporte-cobros-usuario.pdf', 'I'); 
+        //exit();
+    }
+
     public function logout(){
         //destruyo la session  y salgo
         $data['idusuario'] = $this->session->idusuario;
