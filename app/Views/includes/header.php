@@ -94,6 +94,9 @@
                                             <nav class="sb-sidenav-menu-nested nav">
                                                 <a class="nav-link" href="'.site_url().'cobros">Registrar un cobro o visita</a>
                                             </nav>
+                                            <nav class="sb-sidenav-menu-nested nav">
+                                                <a class="nav-link" href="'.site_url().'subir_pagos">Subir pagos anteriores</a>
+                                            </nav>
                                         </div>
                                     </nav>
                                     <!-- END Menú Item -->
@@ -114,6 +117,12 @@
                                         <div class="collapse" id="pagesCollapseAuthReportes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                             <nav class="sb-sidenav-menu-nested nav">
                                                 <a class="nav-link" href="'.site_url().'reportes">Lista usuarios para pedir reportes</a>
+                                            </nav>
+                                            <nav class="sb-sidenav-menu-nested nav">
+                                                <a class="nav-link" href="'.site_url().'frm_reporte_cobros_cooperativa">Reporte de pagos por Cooperativa</a>
+                                            </nav>
+                                            <nav class="sb-sidenav-menu-nested nav">
+                                                <a class="nav-link" href="'.site_url().'reporte_cobros_total">Reporte de pagos total</a>
                                             </nav>
                                         </div>
                                     </nav>

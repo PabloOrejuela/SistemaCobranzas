@@ -126,6 +126,85 @@ class Pago extends BaseController{
             $this->logout();
         }
     }
+
+    public function frm_subir_excel_pagos(){
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+
+        if ($data['logged_in'] == 1) {
+
+            $data['idempresa'] = $this->session->idempresa;
+            $data['version'] = $this->system_version;
+            $data['empresas'] = $this->empresaModel->findAll();
+
+            $data['title']='Seguimiento y cobros';
+            $data['main_content']='cobros/frm_subir_excel_pagos';
+            return view('includes/template', $data);
+        }else{
+            $this->logout();
+        }
+    }
+
+    public function getExcel(){
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+        if ($data['logged_in'] == 1) {
+
+            $data['idempresa'] = $this->session->idempresa;
+            $data['version'] = $this->system_version;
+            $data['title']='Cartera';
+
+            $idempresa = $this->request->getPostGet('idempresa');
+
+            $tipo = $_FILES['tablaCartera']['type'];
+            $size = $_FILES['tablaCartera']['size'];
+            $fileTemp = $_FILES['tablaCartera']['tmp_name'];
+            
+            $this->validation->setRuleGroup('uploadFile');
+        
+            if (!$this->validation->withRequest($this->request)->run()) {
+                //Depuración
+                //dd($validation->getErrors());
+                return redirect()->back()->withInput()->with('errors', $this->validation->getErrors());
+            }else{
+                $filas = file($fileTemp);
+                $num_registros = count($filas)-1;
+
+                foreach ($filas as $key => $fila) {
+                    if ($key != 0) {
+                        $datos = explode(";", $fila);
+                        
+                        $pagos = array(
+                            'nombre' => trim($datos[0]),
+                            'cedula' => trim($datos[1]),
+                            'abono' => trim($datos[2]),
+                            'metodo_pago' => trim($datos[3]),
+                            'documento' => trim($datos[4]),
+                            'credito' => trim($datos[5]),
+                            'observacion' => trim($datos[6]),
+                        );
+                        //PABLO Aquí verificar si es pago o visita 
+
+                        //Si es pago
+                        $this->pagoModel->save($pagos);
+
+                        //Si es visita
+                        $this->seguimientoModel->save($visita);
+
+                        //echo '<pre>'.var_export($cliente, true).'</pre>';
+                    }
+                    
+                }       
+            return redirect()->to('cobros');
+            }
+        }else{
+            $this->logout();
+        }
+    }
     
 
     public function logout(){
