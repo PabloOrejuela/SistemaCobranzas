@@ -85,4 +85,21 @@ class CarteraModel extends Model {
         }
         //echo $this->db->getLastQuery();
     }
+
+    function _getIdCarteraCedula($registro){
+        $id = 0;
+        $builder = $this->db->table('cartera');
+        $builder->select('*')->where('cedula', $registro['cedula']);
+        $builder->where('credito', $registro['credito']);
+        $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
+        $query = $builder->get();
+        echo $this->db->getLastQuery();
+        if ($query->getResult() != null) {
+            foreach ($query->getResult() as $row) {
+                $id = $row->idcartera;
+            }
+            return $id;
+        }
+        //echo $this->db->getLastQuery();
+    }
 }

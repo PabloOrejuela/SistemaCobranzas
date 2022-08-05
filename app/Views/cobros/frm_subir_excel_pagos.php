@@ -9,7 +9,7 @@
                     <?= esc("Subir pagos anteriores"); ?>
                 </div>
                 <div class="card-body"> 
-                    <form action="<?php echo base_url().'/getExcel';?>" method="post" id="form-subir-excel" enctype="multipart/form-data">
+                    <form action="<?php echo base_url().'/getExcelPagos';?>" method="post" id="form-subir-excel" enctype="multipart/form-data">
                         <?= csrf_field(); ?>
                         <div class="container mb-5" style="margin-top:30px;">
                             <div class="col-sm-6 mb-3">

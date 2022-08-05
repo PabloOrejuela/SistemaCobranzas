@@ -147,7 +147,7 @@ class Pago extends BaseController{
         }
     }
 
-    public function getExcel(){
+    public function getExcelPagos(){
         $data['idrol'] = $this->session->idrol;
         $data['idusuario'] = $this->session->idusuario;
         $data['logged_in'] = $this->session->logged_in;
@@ -178,7 +178,8 @@ class Pago extends BaseController{
                     if ($key != 0) {
                         $datos = explode(";", $fila);
                         
-                        $pagos = array(
+                        $registro = array(
+                            'idusuario' => $this->session->idusuario,
                             'nombre' => trim($datos[0]),
                             'cedula' => trim($datos[1]),
                             'abono' => trim($datos[2]),
@@ -187,19 +188,26 @@ class Pago extends BaseController{
                             'credito' => trim($datos[5]),
                             'observacion' => trim($datos[6]),
                         );
-                        //PABLO Aquí verificar si es pago o visita 
 
-                        //Si es pago
-                        $this->pagoModel->save($pagos);
+                        if(trim($datos[5]) < 1){
+                            $registro['credito'] = 1;
+                        }
 
-                        //Si es visita
-                        $this->seguimientoModel->save($visita);
+                        $registro['idcartera'] = $this->carteraModel->_getIdCarteraCedula($registro);
+                        //Si es VISITA  
+                        if ($registro['metodo_pago'] == 'VISITA') {
+                            //echo '<pre>Visita'.var_export($registro, true).'</pre>';
+                            $this->seguimientoModel->save($registro);
 
+                        }else  {
+                            //echo '<pre>Pago'.var_export($registro, true).'</pre>';
+                            $this->pagoModel->save($registro);
+                        }
                         //echo '<pre>'.var_export($cliente, true).'</pre>';
                     }
                     
-                }       
-            return redirect()->to('cobros');
+                }     
+                return redirect()->to('cobros');
             }
         }else{
             $this->logout();
