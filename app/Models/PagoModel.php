@@ -75,11 +75,12 @@ class PagoModel extends Model {
     }
 
     function _getPagosCooperativa($data){
+        //echo '<pre>'.var_export($data['date_hasta'], true).'</pre>';exit;
         $builder = $this->db->table('pagos');
         $builder->select('*');
         $builder->where('idempresa', $data['idempresa']);
         $builder->where('pagos.created_at >=', $data['date_desde']);
-        //$builder->where('pagos.created_at <=', $data['date_hasta']);
+        $builder->where('pagos.created_at <', date("Y-m-d",strtotime($data['date_hasta']."+ 1 days")) );
         $builder->join('metodo_pago', 'metodo_pago.idmetodo_pago = pagos.idmetodo_pago');
         $builder->join('cartera', 'cartera.idcartera = pagos.idcartera');
         $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
