@@ -314,6 +314,26 @@ class Reportes extends BaseController {
         //exit();
     }
 
+    public function frm_reporte_cobros_cooperativa(){
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+
+        if ($data['logged_in'] == 1) {
+
+            $data['idempresa'] = $this->session->idempresa;
+            $data['version'] = $this->system_version;
+            $data['empresas'] = $this->empresaModel->findAll();
+
+            $data['title']='Reportes';
+            $data['main_content']='reportes/frm_cooperativas_reporte_pagos';
+            return view('includes/template', $data);
+        }else{
+            $this->logout();
+        }
+    }
+
     public function logout(){
         //destruyo la session  y salgo
         $data['idusuario'] = $this->session->idusuario;

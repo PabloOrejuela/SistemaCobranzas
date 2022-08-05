@@ -23,7 +23,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label for="date_hasta" class="col-sm-2 col-form-label">Desde: </label>
+                                    <label for="date_hasta" class="col-sm-2 col-form-label">Hasta: </label>
                                     <div class="col-md-4">
                                         <input type="date" class="form-control" name="date_hasta" id="date" value="<?= date('Y-m-d');?>">
                                         <p id="error-message"><?= session('errors.date_hasta');?> </p>
