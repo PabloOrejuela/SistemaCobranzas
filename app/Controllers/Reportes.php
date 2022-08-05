@@ -423,13 +423,15 @@ class Reportes extends BaseController {
             'date_hasta' => $this->request->getPostGet('date_hasta'),
             'idempresa' => $this->request->getPostGet('idempresa'),
         );
-
         //echo '<pre>'.var_export($data, true).'</pre>';
-        $cooperativa = $this->empresaModel->find($data['idempresa']);
-        $registros = $this->pagoModel->_getPagosCooperativa($data);
-        //echo '<pre>'.var_export($registros, true).'</pre>';
-        $this->pdf_reporte_cobros_cooperativa($cooperativa, $registros, $data);
-        //return redirect()->to('/cobros');
+        if ($data['idempresa'] != 0) {
+            //echo '<pre>'.var_export($data, true).'</pre>';
+            $cooperativa = $this->empresaModel->find($data['idempresa']);
+            $registros = $this->pagoModel->_getPagosCooperativa($data);
+            $this->pdf_reporte_cobros_cooperativa($cooperativa, $registros, $data);
+        }else{
+            return redirect()->to('/frm_reporte_cobros_cooperativa');
+        }
         
     }
 

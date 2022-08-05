@@ -27,7 +27,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 mb-3">
-                                <label for="idrol" class="col-sm-4 col-form-label">Cooperativa: </label>
+                                <label for="idrol" class="col-sm-4 col-form-label">Cooperativa *: </label>
                                 <select class="form-select" aria-label="Default select example" value="<?= old('idempresa'); ?>" name="idempresa">
                                     <option value="0" selected>-- Escoja una cooperativa --</option>
                                     <?php  
@@ -43,7 +43,10 @@
                                 <p id="error-message"><?= session('errors.idrol');?> </p>
                             </div>
                             <div>
-                                <input type="submit" class="btn btn-outline-secondary" value="Reporte">
+                                <input type="submit" class="btn btn-outline-secondary" formtarget="_blank" value="Reporte">
+                            </div>
+                            <div class="mt-3">
+                                <label for="">Los campos con * son obligatorios</label>
                             </div>
                         </div>
                     </form>
