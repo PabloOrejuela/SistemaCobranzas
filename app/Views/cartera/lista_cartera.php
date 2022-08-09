@@ -11,6 +11,7 @@
                 <div class="card-body"> 
                     <table class="table table-bordered table-striped table-hover mt-5" id="datatablesSimple">
                         <thead>
+                            <th>Credito</th>
                             <th>Cliente</th>
                             <th>Cédula</th>
                             <th>Fecha Emisión</th>
@@ -31,6 +32,7 @@
                             foreach ($cartera as $key => $value) {
                             
                                 echo '<tr>
+                                        <td>'.$value->credito.'</td>
                                         <td><a href="'.site_url().'cliente_resumen/'.$value->idcartera.'">'.$value->nombre.'</a></td>
                                         <td>'.$value->cedula.'</td>
                                         <td>'.$value->fecha_emision.'</td>
@@ -43,7 +45,7 @@
                                         <td>'.$value->subtotal.'</td>
                                         <td>'.$value->comision.'</td>
                                         <td>'.$value->coactiva.'</td>
-                                        <td>'.$value->total.'</td>   
+                                        <td style="text-align:right;">$ '.number_format($value->total, 2).'</td>   
                                     ';
                                 
                                 echo '</tr>';
