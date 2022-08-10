@@ -280,7 +280,7 @@ class Pago extends BaseController{
                 $registro['idusuario'] = $this->session->idusuario;
                 //echo '<pre>'.var_export($registro, true).'</pre>';exit;
                 $r = $this->pagoModel->save($registro);
-                echo $this->db->getLastQuery();
+                //echo $this->db->getLastQuery();
                 //echo '<pre>'.var_export($r, true).'</pre>';
                 return redirect()->to(site_url().'lista_pagos');
             }
