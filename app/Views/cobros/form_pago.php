@@ -43,6 +43,12 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
+                                <label for="inputPassword" class="col-sm-3 col-form-label">Fecha del pago:</label>
+                                    <div class="col-sm-2">
+                                    <input type="date" class="form-control" name="fecha_pago" id="date" value="<?= date('Y-m-d');?>">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
                                 <label for="inputPassword" class="col-sm-2 col-form-label">Abono:</label>
                                     <div class="col-sm-6">
                                     <input type="text" class="form-control" id="inputPassword" name="abono" placeholder="0.00" value="<?= old('abono'); ?>">

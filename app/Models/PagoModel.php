@@ -14,7 +14,7 @@ class PagoModel extends Model {
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'abono','idmetodo_pago','documento','img_documento','idusuario','idcartera'
+        'abono','idmetodo_pago','documento','img_documento','idusuario','idcartera', 'fecha_pago'
     ];
 
     // Dates
@@ -98,7 +98,7 @@ class PagoModel extends Model {
         //echo '<pre>'.var_export($data['date_hasta'], true).'</pre>';exit;
         $builder = $this->db->table('pagos');
         $builder->select('*');
-        $builder->where('pagos.created_at >=', $data['date_desde']);
+        $builder->where('pagos.fecha_pago >=', $data['date_desde']);
         $builder->where('pagos.created_at <', date("Y-m-d",strtotime($data['date_hasta']."+ 1 days")) );
         $builder->join('metodo_pago', 'metodo_pago.idmetodo_pago = pagos.idmetodo_pago');
         $builder->join('cartera', 'cartera.idcartera = pagos.idcartera');

@@ -76,6 +76,7 @@ class Pago extends BaseController{
                 'idmetodo_pago' => $this->request->getPostGet('idmetodo_pago'),
                 'idcartera' => $this->request->getPostGet('idcartera'),
                 'documento' => $this->request->getPostGet('documento'),
+                'fecha_pago' => $this->request->getPostGet('fecha_pago'),            
             );
             //echo '<pre>'.var_export($registro, true).'</pre>';exit;
             $this->validation->setRuleGroup('pago');
@@ -187,6 +188,7 @@ class Pago extends BaseController{
                             'documento' => trim($datos[4]),
                             'credito' => trim($datos[5]),
                             'observacion' => trim($datos[6]),
+                            'fecha_pago' => trim($datos[7]),
                         );
 
                         if(trim($datos[5]) < 1){

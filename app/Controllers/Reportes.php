@@ -512,7 +512,7 @@ class Reportes extends BaseController {
         $pdf->Cell(70, 0, 'Cooperativa', 'TLRB', 0, 'C', true);
         $pdf->Cell(60, 0, 'Nombre', 'TLRB', 0, 'C', true);
         $pdf->Cell(22, 0, 'Cédula', 'TLRB', 0, 'C', true);
-        $pdf->Cell(30, 0, 'Fecha', 'TLRB', 0, 'C', true);
+        $pdf->Cell(30, 0, 'Fecha pago', 'TLRB', 0, 'C', true);
         $pdf->Cell(27, 0, 'Método', 'TLRB', 0, 'C', true);
         $pdf->Cell(42, 0, 'Documento', 'TLRB', 0, 'C', true);
         $pdf->Cell(20, 0, 'Abono', 'TLRB', 0, 'C', true);
@@ -529,7 +529,7 @@ class Reportes extends BaseController {
                 $pdf->Cell(70, 0, $value->nombre_corto, 'TLRB', 0, 'L', false);
                 $pdf->Cell(60, 0, $value->nombre, 'TLRB', 0, 'L', false);
                 $pdf->Cell(22, 0, $value->cedula, 'TLRB', 0, 'C', false);
-                $pdf->Cell(30, 0, $value->created_at, 'TLRB', 0, 'L', false);
+                $pdf->Cell(30, 0, $value->fecha_pago, 'TLRB', 0, 'C', false);
                 $pdf->Cell(27, 0, $value->metodo_pago, 'TLRB', 0, 'R', false);
                 $pdf->Cell(42, 0, $value->documento, 'TLRB', 0, 'R', false);
                 $pdf->Cell(20, 0, '$ '.$value->abono, 'TLRB', 0, 'R', false);
@@ -539,7 +539,7 @@ class Reportes extends BaseController {
         }else{
             $pdf->ln();
             $pdf->SetFont('helvetica', 'P', 9);
-            $pdf->Cell(268, 0, 'El usuario no registra cobros en este período de tiempo', 'TLRB', 0, 'L', false);
+            $pdf->Cell(276, 0, 'El usuario no registra cobros en este período de tiempo', 'TLRB', 0, 'L', false);
         }
         $pdf->ln();
         $pdf->Cell(276, 0, '', 'TLRB', 0, 'R', false);
