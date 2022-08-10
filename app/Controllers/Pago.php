@@ -215,7 +215,79 @@ class Pago extends BaseController{
             $this->logout();
         }
     }
+
+    public function lista_pagos(){
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+        if ($data['logged_in'] == 1) {
+            
+            $data['pagos'] = $this->pagoModel->_getPagosCooperativaList($this->session->idempresa);
+            $data['idempresa'] = $this->session->idempresa;
+            $data['version'] = $this->system_version;
+            $data['title']='Cobros';
+            $data['main_content']='cobros/lista_pagos';
+            return view('includes/template', $data);
+        }else{
+            $this->logout();
+        }
+    }
+
+    public function editar($idpagos){
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+        if ($data['logged_in'] == 1) {
+
+            $data['idempresa'] = $this->session->idempresa;
+            $data['idpagos'] = $idpagos;
+            $data['pago'] = $this->pagoModel->_getDataPago($idpagos);
+            //echo '<pre>'.var_export($data['pago'], true).'</pre>';exit;
+            $data['version'] = $this->system_version;
+            $data['title']='Cobros';
+            $data['main_content']='cobros/form_edit_pago';
+            return view('includes/template', $data);
+        }else{
+            $this->logout();
+        }
+    }
     
+    public function actualizar(){
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+        if ($data['logged_in'] == 1) {
+
+            $registro = array(
+                'idpago' => $this->request->getPostGet('idpago'),
+                'abono' => $this->request->getPostGet('abono'),
+                'idmetodo_pago' => $this->request->getPostGet('idmetodo_pago'),
+                'documento' => $this->request->getPostGet('documento'),
+                'fecha_pago' => $this->request->getPostGet('fecha_pago'), 
+                'idcartera' => $this->request->getPostGet('idcartera'),            
+            );
+            //echo '<pre>'.var_export($registro, true).'</pre>';exit;
+            $this->validation->setRuleGroup('pago');
+        
+            if (!$this->validation->withRequest($this->request)->run()) {
+                //Depuración
+                //dd($this->validation->getErrors());
+                return redirect()->back()->withInput()->with('errors', $this->validation->getErrors());
+            }else{
+                $registro['idusuario'] = $this->session->idusuario;
+                //echo '<pre>'.var_export($registro, true).'</pre>';exit;
+                $r = $this->pagoModel->save($registro);
+                echo $this->db->getLastQuery();
+                //echo '<pre>'.var_export($r, true).'</pre>';
+                return redirect()->to(site_url().'lista_pagos');
+            }
+        }else{
+            $this->logout();
+        }
+    }
 
     public function logout(){
         //destruyo la session  y salgo

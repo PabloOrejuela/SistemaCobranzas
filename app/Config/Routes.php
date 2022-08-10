@@ -57,6 +57,9 @@ $routes->post('/insertPago', 'Pago::insertPago');
 $routes->post('/insert_visita', 'Pago::insert_visita');
 $routes->get('subir_pagos', 'Pago::frm_subir_excel_pagos');
 $routes->post('/getExcelPagos', 'Pago::getExcelPagos');
+$routes->get('lista_pagos', 'Pago::lista_pagos');
+$routes->get('editar_pago/(:num)', 'Pago::editar/$1');
+$routes->post('/actualizarPago', 'Pago::actualizar');
 
 $routes->get('/reportes', 'Reportes::index');
 $routes->get('/form_reporte_cobro/(:num)', 'Reportes::form_reporte_cobro/$1');

@@ -94,6 +94,24 @@ class PagoModel extends Model {
         }
     }
 
+    function _getPagosCooperativaList($idempresa){
+        //echo '<pre>'.var_export($data['date_hasta'], true).'</pre>';exit;
+        $builder = $this->db->table('pagos');
+        $builder->select('*');
+        $builder->where('idempresa', $idempresa);
+        $builder->join('metodo_pago', 'metodo_pago.idmetodo_pago = pagos.idmetodo_pago');
+        $builder->join('cartera', 'cartera.idcartera = pagos.idcartera');
+        $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
+        $query = $builder->get();
+        //echo $this->db->getLastQuery();
+        if ($query->getResult() != null) {
+            foreach ($query->getResult() as $row) {
+                $dataTable[] = $row;
+            }
+            return $dataTable;
+        }
+    }
+
     function _getPagosTotal($data){
         //echo '<pre>'.var_export($data['date_hasta'], true).'</pre>';exit;
         $builder = $this->db->table('pagos');
@@ -109,6 +127,25 @@ class PagoModel extends Model {
         if ($query->getResult() != null) {
             foreach ($query->getResult() as $row) {
                 $dataTable[] = $row;
+            }
+            return $dataTable;
+        }
+    }
+
+    function _getDataPago($idpagos){
+        //echo '<pre>'.var_export($data['date_hasta'], true).'</pre>';exit;
+        $builder = $this->db->table('pagos');
+        $builder->select('*');
+        $builder->where('idpagos', $idpagos);
+        $builder->join('metodo_pago', 'metodo_pago.idmetodo_pago = pagos.idmetodo_pago');
+        $builder->join('cartera', 'cartera.idcartera = pagos.idcartera');
+        $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
+        $builder->join('empresas', 'empresas.idempresa = cartera.idempresa');
+        $query = $builder->get();
+        //echo $this->db->getLastQuery();
+        if ($query->getResult() != null) {
+            foreach ($query->getResult() as $row) {
+                $dataTable = $row;
             }
             return $dataTable;
         }

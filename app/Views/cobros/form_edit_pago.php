@@ -1,0 +1,143 @@
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4"><?= esc($title); ?></h1>
+                        
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <?= esc($title); ?>
+                </div>
+                <div class="card-body">
+                    <form action="<?php echo base_url().'/actualizarPago';?>" method="post">
+                        <?= session()->getFlashdata('error'); ?>
+                        <?= csrf_field(); ?>
+                            <div class="mb-3 row">
+                                <label for="nombre" class="col-sm-2 col-form-label"><?= $pago->empresa ?> </label>
+                                <div class="col-sm-6">
+                                    <input type="text" readonly class="form-control" id="staticEmail" value="<?= $pago->nombre ?>">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="nombre" class="col-sm-2 col-form-label">Cedula: </label>
+                                    <div class="col-sm-6">
+                                    <input type="text" readonly class="form-control" id="staticEmail" value="<?= $pago->cedula ?>">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="nombre" class="col-sm-3 col-form-label">Cuotas restantes: </label>
+                                <div class="col-sm-5">
+                                    <input type="text" readonly class="form-control" id="staticEmail" value="<?= $pago->cuotas_cancelar - $pago->cuotas_canceladas ?>">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="nombre" class="col-sm-2 col-form-label">Total: </label>
+                                    <div class="col-sm-6">
+                                    <input type="text" readonly class="form-control" id="staticEmail" value="<?= $pago->total ?>">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="inputPassword" class="col-sm-3 col-form-label">Valor de la couta:</label>
+                                    <div class="col-sm-5">
+                                    <input type="text" readonly class="form-control" id="staticEmail" value="<?= $pago->valor_cuota; ?>">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="inputPassword" class="col-sm-3 col-form-label">Fecha del pago:</label>
+                                    <div class="col-sm-2">
+                                    <input type="date" class="form-control" name="fecha_pago" id="date" value="<?= $pago->fecha_pago;;?>">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="inputPassword" class="col-sm-2 col-form-label">Abono:</label>
+                                    <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="inputPassword" name="abono" placeholder="0.00" value="<?= $pago->abono ?>">
+                                    <p id="error-message"><?= session('errors.abono');?> </p>
+                                </div>
+                                
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="inputPassword" class="col-sm-2 col-form-label">Método:</label>
+                                    <div class="col-sm-6">
+                                        <select 
+                                            class="form-select" 
+                                            aria-label="Default select example" 
+                                            name="idmetodo_pago" 
+                                            id="idmetodo_pago" 
+                                            onChange="onChangeActiveInput();"   
+                                        >
+                                        <?php
+                                            
+                                            if ($pago->idmetodo_pago == '1') {
+                                                echo '<option value="0">--Método de pago--</option>
+                                                        <option value="1" selected>EFECTIVO</option>
+                                                        <option value="2">DEPOSITO</option>
+                                                        <option value="3">TRANSFERENCIA</option>';
+                                            }elseif ($pago->idmetodo_pago == '2') {
+                                                echo '<option value="0">--Método de pago--</option>
+                                                        <option value="1">EFECTIVO</option>
+                                                        <option value="2" selected>DEPOSITO</option>
+                                                        <option value="3">TRANSFERENCIA</option>';
+                                            }elseif ($pago->idmetodo_pago == '3') {
+                                                echo '<option value="0">--Método de pago--</option>
+                                                        <option value="1">EFECTIVO</option>
+                                                        <option value="2">DEPOSITO</option>
+                                                        <option value="3" selected>TRANSFERENCIA</option>';
+                                            }else{
+                                                echo '<option value="0" selected>--Método de pago--</option>
+                                                        <option value="1">EFECTIVO</option>
+                                                        <option value="2">DEPOSITO</option>
+                                                        <option value="3">TRANSFERENCIA</option>';
+                                            }
+                                        ?>
+                                        </select>
+                                        <p id="error-message"><?= session('errors.idmetodo_pago');?> </p>
+                                    </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="num_documento" class="col-sm-2 col-form-label">Documento:</label>
+                                    <div class="col-sm-6">
+                                    <textarea 
+                                        type="text" 
+                                        class="form-control" 
+                                        disabled="true" 
+                                        name="documento" 
+                                        id="documento" 
+                                        placeholder="Datos documento"
+                                        maxlength=120
+                                    ><?= $pago->documento ?></textarea>
+                                    <p id="contador">0 caracteres</p>
+                                </div>
+                                
+                            </div>
+                            <?= form_hidden('idpago', $pago->idpagos);?>
+                            <?= form_hidden('idcartera', $pago->idcartera);?>
+                            <input type="submit" class="btn btn-outline-dark" value="Actualizar pago">
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </main>
+
+<script type="text/javascript">
+    $(function onChangeActiveInput() {
+        $("#idmetodo_pago").change( function() {
+            if ($(this).val() === "1") {
+                $("#documento").prop("disabled", true);
+            } else {
+                $("#documento").prop("disabled", false);
+            }
+        });
+    });
+
+    //Contador de caracteres
+    const mensaje = document.getElementById('documento');
+    const contador = document.getElementById('contador');
+
+    mensaje.addEventListener('input', function(e) {
+        const target = e.target;
+        const longitudMax = target.getAttribute('maxlength');
+        const longitudAct = target.value.length;
+        contador.innerHTML = `${longitudAct}/${longitudMax + ' caracteres máximo'}`;
+    });
+</script>

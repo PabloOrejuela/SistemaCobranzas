@@ -97,6 +97,9 @@
                                             <nav class="sb-sidenav-menu-nested nav">
                                                 <a class="nav-link" href="'.site_url().'subir_pagos">Subir pagos anteriores</a>
                                             </nav>
+                                            <nav class="sb-sidenav-menu-nested nav">
+                                                <a class="nav-link" href="'.site_url().'lista_pagos">Editar datos de un pago</a>
+                                            </nav>
                                         </div>
                                     </nav>
                                     <!-- END Menú Item -->
