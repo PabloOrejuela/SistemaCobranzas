@@ -374,7 +374,7 @@ class Reportes extends BaseController {
                 $pdf->Cell(7, 0, $n, 'TLRB', 0, 'C', false);
                 $pdf->Cell(70, 0, $value->nombre, 'TLRB', 0, 'L', false);
                 $pdf->Cell(25, 0, $value->cedula, 'TLRB', 0, 'C', false);
-                $pdf->Cell(33, 0, $value->created_at, 'TLRB', 0, 'L', false);
+                $pdf->Cell(33, 0, $value->fecha_pago, 'TLRB', 0, 'L', false);
                 $pdf->Cell(30, 0, $value->metodo_pago, 'TLRB', 0, 'R', false);
                 $pdf->Cell(70, 0, $value->documento, 'TLRB', 0, 'R', false);
                 $pdf->Cell(33, 0, '$ '.$value->abono, 'TLRB', 0, 'R', false);

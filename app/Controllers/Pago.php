@@ -196,19 +196,25 @@ class Pago extends BaseController{
                         }
 
                         $registro['idcartera'] = $this->carteraModel->_getIdCarteraCedula($registro);
+
                         //Si es VISITA  
                         if ($registro['metodo_pago'] == 'VISITA') {
-                            //echo '<pre>Visita'.var_export($registro, true).'</pre>';
+                            //echo '<pre>Visita'.var_export($registro['idcartera'], true).'</pre>';
                             $this->seguimientoModel->save($registro);
 
                         }else  {
-                            //echo '<pre>Pago'.var_export($registro, true).'</pre>';
+                            
+                            // echo '<pre>CEDULA'.var_export($registro['cedula'], true).'</pre>';
+                            // echo '<pre>CREDITO '.var_export($registro['credito'], true).'</pre>';
+                            // echo '<pre>Id '.var_export($registro['idcartera'], true).'</pre>';
+                            
                             $this->pagoModel->save($registro);
                         }
                         //echo '<pre>'.var_export($cliente, true).'</pre>';
                     }
                     
-                }     
+                } 
+                    
                 return redirect()->to('cobros');
             }
         }else{
