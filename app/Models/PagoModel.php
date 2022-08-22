@@ -48,6 +48,7 @@ class PagoModel extends Model {
         $builder->join('metodo_pago', 'metodo_pago.idmetodo_pago = pagos.idmetodo_pago');
         $builder->join('cartera', 'cartera.idcartera = pagos.idcartera');
         $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
+        $builder->orderBy('nombre', 'ASC');
         $query = $builder->get();
         if ($query->getResult() != null) {
             foreach ($query->getResult() as $row) {
@@ -64,7 +65,7 @@ class PagoModel extends Model {
         $builder->join('metodo_pago', 'metodo_pago.idmetodo_pago = pagos.idmetodo_pago');
         $builder->join('cartera', 'cartera.idcartera = pagos.idcartera');
         $builder->join('usuarios', 'usuarios.idusuario = pagos.idusuario');
-        $builder->orderBy('pagos.created_at', 'ASC');
+        $builder->orderBy('pagos.fecha_pago', 'ASC');
         $query = $builder->get();
         if ($query->getResult() != null) {
             foreach ($query->getResult() as $row) {
@@ -84,6 +85,7 @@ class PagoModel extends Model {
         $builder->join('metodo_pago', 'metodo_pago.idmetodo_pago = pagos.idmetodo_pago');
         $builder->join('cartera', 'cartera.idcartera = pagos.idcartera');
         $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
+        $builder->orderBy('nombre', 'ASC');
         $query = $builder->get();
         //echo $this->db->getLastQuery();
         if ($query->getResult() != null) {
@@ -102,6 +104,7 @@ class PagoModel extends Model {
         $builder->join('metodo_pago', 'metodo_pago.idmetodo_pago = pagos.idmetodo_pago');
         $builder->join('cartera', 'cartera.idcartera = pagos.idcartera');
         $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
+        //$builder->orderBy('nombre', 'ASC');
         $query = $builder->get();
         //echo $this->db->getLastQuery();
         if ($query->getResult() != null) {
@@ -122,6 +125,7 @@ class PagoModel extends Model {
         $builder->join('cartera', 'cartera.idcartera = pagos.idcartera');
         $builder->join('clientes', 'clientes.idcliente = cartera.idcliente');
         $builder->join('empresas', 'empresas.idempresa = cartera.idempresa');
+        $builder->orderBy('nombre', 'ASC');
         $query = $builder->get();
         //echo $this->db->getLastQuery();
         if ($query->getResult() != null) {

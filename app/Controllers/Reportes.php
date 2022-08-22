@@ -59,6 +59,100 @@ class Reportes extends BaseController {
         
     }
 
+    public function reporte_seguimiento_pdf($idcartera){
+        $data['idempresa'] = $this->session->idempresa;
+
+        //echo '<pre>'.var_export($data, true).'</pre>';
+        $cliente = $this->clienteModel->_getDataCliente($idcartera);
+        $seguimiento = $this->seguimientoModel->_getDataSeguimiento($idcartera);
+        //echo '<pre>'.var_export($cliente, true).'</pre>';
+        $this->PdfReporteSeguimientoCartera($cliente[0], $seguimiento);
+        //return redirect()->to('/cobros');
+        
+    }
+
+    public function reporte_cobros_pdf($idcartera){
+        $data['idempresa'] = $this->session->idempresa;
+
+        //echo '<pre>'.var_export($data, true).'</pre>';
+        $cliente = $this->clienteModel->_getDataCliente($idcartera);
+        $cobros = $this->pagoModel->_getDataCobrosCartera($idcartera);
+        //echo '<pre>'.var_export($cliente, true).'</pre>';
+        $this->PdfReporteCobrosCartera($cliente[0], $cobros);
+        //return redirect()->to('/cobros');
+        
+    }
+
+    public function frm_reporte_cobros_cooperativa(){
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+
+        if ($data['logged_in'] == 1) {
+
+            $data['idempresa'] = $this->session->idempresa;
+            $data['version'] = $this->system_version;
+            $data['empresas'] = $this->empresaModel->findAll();
+
+            $data['title']='Reportes';
+            $data['main_content']='reportes/frm_cooperativas_reporte_pagos';
+            return view('includes/template', $data);
+        }else{
+            $this->logout();
+        }
+    }
+
+    public function get_reporte_cobros_cooperativa(){
+        //$data['idempresa'] = $this->session->idempresa;
+        $data = array(
+            'date_desde' => $this->request->getPostGet('date_desde'),
+            'date_hasta' => $this->request->getPostGet('date_hasta'),
+            'idempresa' => $this->request->getPostGet('idempresa'),
+        );
+        //echo '<pre>'.var_export($data, true).'</pre>';
+        if ($data['idempresa'] != 0) {
+            //echo '<pre>'.var_export($data, true).'</pre>';
+            $cooperativa = $this->empresaModel->find($data['idempresa']);
+            $registros = $this->pagoModel->_getPagosCooperativa($data);
+            $this->pdf_reporte_cobros_cooperativa($cooperativa, $registros, $data);
+        }else{
+            return redirect()->to('/frm_reporte_cobros_cooperativa');
+        }  
+    }
+
+    public function frm_reporte_cobros_total(){
+        $data['idrol'] = $this->session->idrol;
+        $data['idusuario'] = $this->session->idusuario;
+        $data['logged_in'] = $this->session->logged_in;
+        $data['nombre'] = $this->session->nombre;
+
+        if ($data['logged_in'] == 1) {
+
+            $data['idempresa'] = $this->session->idempresa;
+            $data['version'] = $this->system_version;
+            $data['empresas'] = $this->empresaModel->findAll();
+
+            $data['title']='Reportes';
+            $data['main_content']='reportes/frm_cooperativas_reporte_pagos_total';
+            return view('includes/template', $data);
+        }else{
+            $this->logout();
+        }
+    }
+
+    public function get_reporte_cobros_total(){
+        //$data['idempresa'] = $this->session->idempresa;
+        $data = array(
+            'date_desde' => $this->request->getPostGet('date_desde'),
+            'date_hasta' => $this->request->getPostGet('date_hasta'),
+        );
+        //echo '<pre>'.var_export($data, true).'</pre>';
+        $registros = $this->pagoModel->_getPagosTotal($data);
+        $this->pdf_reporte_cobros_total($registros, $data);
+        
+    }
+
     public function PdfReporteCobrosUsuarioFechas($registros, $usuario){
 
         
@@ -88,11 +182,11 @@ class Reportes extends BaseController {
         $pdf->ln(12);
         $pdf->SetFont('helvetica', 'B', 9);
         $pdf->Cell(7, 0, 'No.', 'TLRB', 0, 'L', true);
-        $pdf->Cell(70, 0, 'Nombre', 'TLRB', 0, 'C', true);
+        $pdf->Cell(85, 0, 'Nombre', 'TLRB', 0, 'C', true);
         $pdf->Cell(25, 0, 'Cédula', 'TLRB', 0, 'C', true);
         $pdf->Cell(33, 0, 'Fecha', 'TLRB', 0, 'C', true);
         $pdf->Cell(30, 0, 'Método', 'TLRB', 0, 'C', true);
-        $pdf->Cell(70, 0, 'Documento', 'TLRB', 0, 'C', true);
+        $pdf->Cell(55, 0, 'Documento', 'TLRB', 0, 'C', true);
         $pdf->Cell(33, 0, 'Abono', 'TLRB', 0, 'C', true);
         
 
@@ -104,11 +198,11 @@ class Reportes extends BaseController {
                 $pdf->ln();
                 $pdf->SetFont('helvetica', 'P', 8);
                 $pdf->Cell(7, 0, $n, 'TLRB', 0, 'C', false);
-                $pdf->Cell(70, 0, $value->nombre, 'TLRB', 0, 'L', false);
+                $pdf->Cell(85, 0, $value->nombre, 'TLRB', 0, 'L', false);
                 $pdf->Cell(25, 0, $value->cedula, 'TLRB', 0, 'C', false);
-                $pdf->Cell(33, 0, $value->created_at, 'TLRB', 0, 'L', false);
-                $pdf->Cell(30, 0, $value->metodo_pago, 'TLRB', 0, 'R', false);
-                $pdf->Cell(70, 0, $value->documento, 'TLRB', 0, 'R', false);
+                $pdf->Cell(33, 0, $value->fecha_pago, 'TLRB', 0, 'C', false);
+                $pdf->Cell(30, 0, $value->metodo_pago, 'TLRB', 0, 'C', false);
+                $pdf->Cell(55, 0, $value->documento, 'TLRB', 0, 'R', false);
                 $pdf->Cell(33, 0, '$ '.$value->abono, 'TLRB', 0, 'R', false);
                 $total += $value->abono;
                 $n++;
@@ -126,18 +220,6 @@ class Reportes extends BaseController {
         //$pdf->writeHTML($html, true, false, true, false, '');
         $pdf->Output('reporte-cobros-usuario.pdf', 'I'); 
         //exit();
-    }
-
-    public function reporte_cobros_pdf($idcartera){
-        $data['idempresa'] = $this->session->idempresa;
-
-        //echo '<pre>'.var_export($data, true).'</pre>';
-        $cliente = $this->clienteModel->_getDataCliente($idcartera);
-        $cobros = $this->pagoModel->_getDataCobrosCartera($idcartera);
-        //echo '<pre>'.var_export($cliente, true).'</pre>';
-        $this->PdfReporteCobrosCartera($cliente[0], $cobros);
-        //return redirect()->to('/cobros');
-        
     }
 
     public function PdfReporteCobrosCartera(object $cliente, $cobros){
@@ -201,8 +283,8 @@ class Reportes extends BaseController {
                 $pdf->SetFont('helvetica', 'P', 8);
                 $pdf->Cell(7, 0, $n, 'TLRB', 0, 'C', false);
                 $pdf->Cell(101, 0, $cliente->empresa, 'TLRB', 0, 'L', false);
-                $pdf->Cell(30, 0, $value->fecha, 'TLRB', 0, 'L', false);
-                $pdf->Cell(25, 0, $value->abono, 'TLRB', 0, 'R', false);
+                $pdf->Cell(30, 0, $value->fecha, 'TLRB', 0, 'C', false);
+                $pdf->Cell(25, 0, $value->abono, 'TLRB', 0, 'C', false);
                 $pdf->Cell(35, 0, $value->metodo_pago, 'TLRB', 0, 'L', false);
                 $pdf->Cell(40, 0, $value->documento, 'TLRB', 0, 'R', false);
                 $pdf->Cell(30, 0, '$ '.number_format($value->abono,2), 'TLRB', 0, 'R', false);
@@ -231,18 +313,6 @@ class Reportes extends BaseController {
         //$pdf->writeHTML($html, true, false, true, false, '');
         $pdf->Output('reporte-cobros.pdf', 'I'); 
         //exit();
-    }
-
-    public function reporte_seguimiento_pdf($idcartera){
-        $data['idempresa'] = $this->session->idempresa;
-
-        //echo '<pre>'.var_export($data, true).'</pre>';
-        $cliente = $this->clienteModel->_getDataCliente($idcartera);
-        $seguimiento = $this->seguimientoModel->_getDataSeguimiento($idcartera);
-        //echo '<pre>'.var_export($cliente, true).'</pre>';
-        $this->PdfReporteSeguimientoCartera($cliente[0], $seguimiento);
-        //return redirect()->to('/cobros');
-        
     }
 
     public function PdfReporteSeguimientoCartera(object $cliente, $seguimiento){
@@ -284,9 +354,9 @@ class Reportes extends BaseController {
         $pdf->ln(12);
         $pdf->SetFont('helvetica', 'B', 9);
         $pdf->Cell(7, 0, 'No.', 'TLRB', 0, 'L', true);
-        $pdf->Cell(90, 0, 'Cooperativa', 'TLRB', 0, 'C', true);
+        $pdf->Cell(100, 0, 'Cooperativa', 'TLRB', 0, 'C', true);
         $pdf->Cell(33, 0, 'Fecha', 'TLRB', 0, 'C', true);
-        $pdf->Cell(48, 0, 'Cobrador', 'TLRB', 0, 'C', true);
+        $pdf->Cell(40, 0, 'Cobrador', 'TLRB', 0, 'C', true);
         $pdf->Cell(90, 0, 'Observación', 'TLRB', 0, 'C', true);
         
         $n=1;
@@ -297,7 +367,7 @@ class Reportes extends BaseController {
                 $pdf->SetFont('helvetica', 'P', 7.5);
                 $pdf->Cell(7, 0, $n, 'TLRB', 0, 'C', false);
                 $pdf->Cell(90, 0, $cliente->empresa, 'TLRB', 0, 'L', false);
-                $pdf->Cell(33, 0, $value->fecha, 'TLRB', 0, 'R', false);
+                $pdf->Cell(33, 0, $value->fecha, 'TLRB', 0, 'C', false);
                 $pdf->Cell(48, 0, $value->nombre, 'TLRB', 0, 'L', false);
                 $pdf->Cell(90, 0, $value->observacion, 'TLRB', 0, 'R', false);
                 $n++;
@@ -356,11 +426,11 @@ class Reportes extends BaseController {
         $pdf->ln(12);
         $pdf->SetFont('helvetica', 'B', 9);
         $pdf->Cell(7, 0, 'No.', 'TLRB', 0, 'L', true);
-        $pdf->Cell(70, 0, 'Nombre', 'TLRB', 0, 'C', true);
+        $pdf->Cell(85, 0, 'Nombre', 'TLRB', 0, 'C', true);
         $pdf->Cell(25, 0, 'Cédula', 'TLRB', 0, 'C', true);
         $pdf->Cell(33, 0, 'Fecha', 'TLRB', 0, 'C', true);
         $pdf->Cell(30, 0, 'Método', 'TLRB', 0, 'C', true);
-        $pdf->Cell(70, 0, 'Documento', 'TLRB', 0, 'C', true);
+        $pdf->Cell(55, 0, 'Documento', 'TLRB', 0, 'C', true);
         $pdf->Cell(33, 0, 'Abono', 'TLRB', 0, 'C', true);
         
 
@@ -372,11 +442,11 @@ class Reportes extends BaseController {
                 $pdf->ln();
                 $pdf->SetFont('helvetica', 'P', 8);
                 $pdf->Cell(7, 0, $n, 'TLRB', 0, 'C', false);
-                $pdf->Cell(70, 0, $value->nombre, 'TLRB', 0, 'L', false);
+                $pdf->Cell(85, 0, $value->nombre, 'TLRB', 0, 'L', false);
                 $pdf->Cell(25, 0, $value->cedula, 'TLRB', 0, 'C', false);
-                $pdf->Cell(33, 0, $value->fecha_pago, 'TLRB', 0, 'L', false);
-                $pdf->Cell(30, 0, $value->metodo_pago, 'TLRB', 0, 'R', false);
-                $pdf->Cell(70, 0, $value->documento, 'TLRB', 0, 'R', false);
+                $pdf->Cell(33, 0, $value->fecha_pago, 'TLRB', 0, 'C', false);
+                $pdf->Cell(30, 0, $value->metodo_pago, 'TLRB', 0, 'C', false);
+                $pdf->Cell(55, 0, $value->documento, 'TLRB', 0, 'R', false);
                 $pdf->Cell(33, 0, '$ '.$value->abono, 'TLRB', 0, 'R', false);
                 $total += $value->abono;
                 $n++;
@@ -394,77 +464,6 @@ class Reportes extends BaseController {
         //$pdf->writeHTML($html, true, false, true, false, '');
         $pdf->Output('reporte-cobros-usuario.pdf', 'I'); 
         //exit();
-    }
-
-    public function frm_reporte_cobros_cooperativa(){
-        $data['idrol'] = $this->session->idrol;
-        $data['idusuario'] = $this->session->idusuario;
-        $data['logged_in'] = $this->session->logged_in;
-        $data['nombre'] = $this->session->nombre;
-
-        if ($data['logged_in'] == 1) {
-
-            $data['idempresa'] = $this->session->idempresa;
-            $data['version'] = $this->system_version;
-            $data['empresas'] = $this->empresaModel->findAll();
-
-            $data['title']='Reportes';
-            $data['main_content']='reportes/frm_cooperativas_reporte_pagos';
-            return view('includes/template', $data);
-        }else{
-            $this->logout();
-        }
-    }
-
-    public function get_reporte_cobros_cooperativa(){
-        //$data['idempresa'] = $this->session->idempresa;
-        $data = array(
-            'date_desde' => $this->request->getPostGet('date_desde'),
-            'date_hasta' => $this->request->getPostGet('date_hasta'),
-            'idempresa' => $this->request->getPostGet('idempresa'),
-        );
-        //echo '<pre>'.var_export($data, true).'</pre>';
-        if ($data['idempresa'] != 0) {
-            //echo '<pre>'.var_export($data, true).'</pre>';
-            $cooperativa = $this->empresaModel->find($data['idempresa']);
-            $registros = $this->pagoModel->_getPagosCooperativa($data);
-            $this->pdf_reporte_cobros_cooperativa($cooperativa, $registros, $data);
-        }else{
-            return redirect()->to('/frm_reporte_cobros_cooperativa');
-        }
-        
-    }
-
-    public function frm_reporte_cobros_total(){
-        $data['idrol'] = $this->session->idrol;
-        $data['idusuario'] = $this->session->idusuario;
-        $data['logged_in'] = $this->session->logged_in;
-        $data['nombre'] = $this->session->nombre;
-
-        if ($data['logged_in'] == 1) {
-
-            $data['idempresa'] = $this->session->idempresa;
-            $data['version'] = $this->system_version;
-            $data['empresas'] = $this->empresaModel->findAll();
-
-            $data['title']='Reportes';
-            $data['main_content']='reportes/frm_cooperativas_reporte_pagos_total';
-            return view('includes/template', $data);
-        }else{
-            $this->logout();
-        }
-    }
-
-    public function get_reporte_cobros_total(){
-        //$data['idempresa'] = $this->session->idempresa;
-        $data = array(
-            'date_desde' => $this->request->getPostGet('date_desde'),
-            'date_hasta' => $this->request->getPostGet('date_hasta'),
-        );
-        //echo '<pre>'.var_export($data, true).'</pre>';
-        $registros = $this->pagoModel->_getPagosTotal($data);
-        $this->pdf_reporte_cobros_total($registros, $data);
-        
     }
 
     public function pdf_reporte_cobros_total($registros, $data){
@@ -509,8 +508,8 @@ class Reportes extends BaseController {
         $pdf->ln(12);
         $pdf->SetFont('helvetica', 'B', 7.5);
         $pdf->Cell(5, 0, 'No', 'TLRB', 0, 'L', true);
-        $pdf->Cell(60, 0, 'Cooperativa', 'TLRB', 0, 'C', true);
-        $pdf->Cell(70, 0, 'Nombre', 'TLRB', 0, 'C', true);
+        $pdf->Cell(50, 0, 'Cooperativa', 'TLRB', 0, 'C', true);
+        $pdf->Cell(80, 0, 'Nombre', 'TLRB', 0, 'C', true);
         $pdf->Cell(22, 0, 'Cédula', 'TLRB', 0, 'C', true);
         $pdf->Cell(30, 0, 'Fecha pago', 'TLRB', 0, 'C', true);
         $pdf->Cell(27, 0, 'Método', 'TLRB', 0, 'C', true);
@@ -526,11 +525,11 @@ class Reportes extends BaseController {
                 $pdf->ln();
                 $pdf->SetFont('helvetica', 'P', 7.5);
                 $pdf->Cell(5, 0, $n, 'TLRB', 0, 'C', false);
-                $pdf->Cell(60, 0, $value->nombre_corto, 'TLRB', 0, 'L', false);
-                $pdf->Cell(70, 0, $value->nombre, 'TLRB', 0, 'L', false);
+                $pdf->Cell(50, 0, $value->nombre_corto, 'TLRB', 0, 'L', false);
+                $pdf->Cell(80, 0, $value->nombre, 'TLRB', 0, 'L', false);
                 $pdf->Cell(22, 0, $value->cedula, 'TLRB', 0, 'C', false);
                 $pdf->Cell(30, 0, $value->fecha_pago, 'TLRB', 0, 'C', false);
-                $pdf->Cell(27, 0, $value->metodo_pago, 'TLRB', 0, 'R', false);
+                $pdf->Cell(27, 0, $value->metodo_pago, 'TLRB', 0, 'C', false);
                 $pdf->Cell(42, 0, $value->documento, 'TLRB', 0, 'R', false);
                 $pdf->Cell(20, 0, '$ '.$value->abono, 'TLRB', 0, 'R', false);
                 $total += $value->abono;
