@@ -110,7 +110,7 @@
                                 </div>
                                 
                             </div>
-                            <?= form_hidden('idpago', $pago->idpagos);?>
+                            <?= form_hidden('idpagos', $pago->idpagos);?>
                             <?= form_hidden('idcartera', $pago->idcartera);?>
                             <input type="submit" class="btn btn-outline-dark" value="Actualizar pago">
                         </form>

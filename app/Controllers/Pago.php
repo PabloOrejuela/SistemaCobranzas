@@ -268,14 +268,14 @@ class Pago extends BaseController{
         if ($data['logged_in'] == 1) {
 
             $registro = array(
-                'idpago' => $this->request->getPostGet('idpago'),
+                'idpagos' => $this->request->getPostGet('idpagos'),
                 'abono' => $this->request->getPostGet('abono'),
                 'idmetodo_pago' => $this->request->getPostGet('idmetodo_pago'),
                 'documento' => $this->request->getPostGet('documento'),
                 'fecha_pago' => $this->request->getPostGet('fecha_pago'), 
                 'idcartera' => $this->request->getPostGet('idcartera'),            
             );
-            //echo '<pre>'.var_export($registro, true).'</pre>';exit;
+            //echo '<pre>'.var_export($registro, true).'</pre>';
             $this->validation->setRuleGroup('pago');
         
             if (!$this->validation->withRequest($this->request)->run()) {
@@ -286,7 +286,7 @@ class Pago extends BaseController{
                 $registro['idusuario'] = $this->session->idusuario;
                 //echo '<pre>'.var_export($registro, true).'</pre>';exit;
                 $r = $this->pagoModel->save($registro);
-                //echo $this->db->getLastQuery();
+                //echo $this->db->getLastQuery();exit;
                 //echo '<pre>'.var_export($r, true).'</pre>';
                 return redirect()->to(site_url().'lista_pagos');
             }
