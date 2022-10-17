@@ -44,6 +44,8 @@ class Cartera extends BaseController{
             $this->idempresa = $data['idempresa'];
             
             $data['cartera'] = $this->carteraModel->_getDataTableCartera($data['idempresa']);
+            //$data['abonos'] = $this->pagoModel->_getSumaPago(745);
+            //echo '<pre>'.var_export($data['abonos'], true).'</pre>';exit;
 
             $data['version'] = $this->system_version;
             $data['title']='Cartera';
@@ -96,11 +98,14 @@ class Cartera extends BaseController{
             }else{
                 $filas = file($fileTemp);
                 $num_registros = count($filas)-1;
-
+                //echo '<pre>'.var_export($filas[1], true).'</pre>';exit;
                 foreach ($filas as $key => $fila) {
                     if ($key != 0) {
                         $datos = explode(";", $fila);
                         
+                        //Base Alangasi
+                        /*
+
                         if ($datos[6] == 'SOLTERO') {
                             $idestado_civil = 1;
                         }else if ($datos[6] == 'CASADO') {
@@ -110,7 +115,7 @@ class Cartera extends BaseController{
                         }else{
                             $idestado_civil = 4;
                         }
-                        
+
                         $cliente = array(
                             'nombre' => trim($datos[4]),
                             'cedula' => trim($datos[3]),
@@ -165,6 +170,76 @@ class Cartera extends BaseController{
                             );
                             $this->carteraModel->save($registro);
                         }
+                        */
+
+                        //Base Don Bosco
+
+                        if ($datos[2] == 'SOLTERO') {
+                            $idestado_civil = 1;
+                        }else if ($datos[2] == 'CASADO') {
+                            $idestado_civil = 2;
+                        }else if ($datos[2] == 'DIVORCIADO') {
+                            $idestado_civil = 3;
+                        }else{
+                            $idestado_civil = 4;
+                        }
+                        
+                        $cliente = array(
+                            'nombre' => trim($datos[1]),
+                            'cedula' => trim($datos[0]),
+                            'idestado_civil' => $idestado_civil,
+                            'calificacion' => trim($datos[7]),
+                            'direccion' => 'N/A',
+                            'dir_trabajo' => 'N/A',
+                            'telefono_domicilio' => 'N/A',
+                            'telefono_trabajo' => 'N/A',
+                        );
+                        //pablo podria traer todo el objeto y verificar el crédito y si es null poner 1, si es 1 poner 2, etc
+                        $exist = $this->clienteModel->_getClienteId($cliente['cedula']);
+                        //echo '<pre>'.var_export($exist, true).'</pre>';exit;
+                        if ($exist == 0) {
+                            $this->clienteModel->save($cliente);
+                            $idcliente = $this->db->insertID();
+                            $registro = array(
+                                'idcliente' => $idcliente,
+                                'credito' => $datos[3],
+                                'fecha_emision' => $datos[6],
+                                'fecha_culminacion' => $datos[8],
+                                'saldo_fecha' => $datos[21],
+                                'valor_cuota' => $datos[15],
+                                'cuotas_cancelar' => $datos[11],
+                                'cuotas_canceladas' => $datos[12],
+                                'tasa_interes' => $datos[17],
+                                'tasa_mora' => $datos[18],
+                                'subtotal' => $datos[33],
+                                'comision' => $datos[34],
+                                'coactiva' => $datos[36],
+                                'total' => $datos[37],
+                                'idempresa' => $idempresa
+                            );
+                            $this->carteraModel->save($registro);
+                        }else{
+                            $idcliente = $exist;
+                            $registro = array(
+                                'idcliente' => $idcliente,
+                                'credito' => $datos[3],
+                                'fecha_emision' => $datos[6],
+                                'fecha_culminacion' => $datos[8],
+                                'saldo_fecha' => $datos[21],
+                                'valor_cuota' => $datos[15],
+                                'cuotas_cancelar' => $datos[11],
+                                'cuotas_canceladas' => $datos[12],
+                                'tasa_interes' => $datos[17],
+                                'tasa_mora' => $datos[18],
+                                'subtotal' => $datos[33],
+                                'comision' => $datos[34],
+                                'coactiva' => $datos[36],
+                                'total' => $datos[37],
+                                'idempresa' => $idempresa
+                            );
+                            $this->carteraModel->save($registro);
+                        }
+                        
 
                         //echo '<pre>'.var_export($cliente, true).'</pre>';
                     }

@@ -15,37 +15,33 @@
                             <th>Cliente</th>
                             <th>Cédula</th>
                             <th>Fecha Emisión</th>
-                            <th>Saldo</th>
                             <th>Cuota</th>
                             <th>Cant. Cuotas</th>
                             <th>Cuotas canceladas</th>
-                            <th>Tasa Int.</th>
-                            <th>Tasa Mora</th>
                             <th>Subtotal</th>
-                            <th>Comisión</th>
                             <th>Coactiva</th>
-                            <th>Total</th>
+                            <th>Saldo</th>
                         </thead>
                     <?php 
+                    use App\Models\PagoModel;
+                    $this->pagoModel = new PagoModel();
                         //echo '<pre>'.var_export($cartera, true).'</pre>';exit;
                         if (isset($cartera) && $cartera !== NULL) {
                             foreach ($cartera as $key => $value) {
-                            
+                                $suma_abonos = $this->pagoModel->_getSumaPago($value->idcartera);
+                                $saldo = $value->saldo_fecha - $suma_abonos;
+                                //echo '<pre>'.var_export($value->idcartera .' | '.$value->total .' - '.$suma_abonos.': '.$saldo, true).'</pre>';
                                 echo '<tr>
                                         <td>'.$value->credito.'</td>
                                         <td><a href="'.site_url().'cliente_resumen/'.$value->idcartera.'">'.$value->nombre.'</a></td>
                                         <td>'.$value->cedula.'</td>
                                         <td>'.$value->fecha_emision.'</td>
-                                        <td>'.$value->saldo_fecha.'</td>
                                         <td>'.$value->valor_cuota.'</td>
                                         <td>'.$value->cuotas_cancelar.'</td>
                                         <td>'.$value->cuotas_canceladas.'</td>
-                                        <td>'.$value->tasa_interes.'</td>
-                                        <td>'.$value->tasa_mora.'</td>
-                                        <td>'.$value->subtotal.'</td>
-                                        <td>'.$value->comision.'</td>
+                                        <td>'.$value->saldo_fecha.'</td>
                                         <td>'.$value->coactiva.'</td>
-                                        <td style="text-align:right;">$ '.number_format($value->total, 2).'</td>   
+                                        <td style="text-align:right;">$ '.number_format($saldo, 2).'</td>   
                                     ';
                                 
                                 echo '</tr>';

@@ -59,7 +59,7 @@ class ClienteModel extends Model {
         }
     }
 
-    function _getClienteId($cedula){echo $cedula;
+    function _getClienteId($cedula){
         $idcliente = 0;
         $builder = $this->db->table('clientes');
         $builder->select('idcliente');

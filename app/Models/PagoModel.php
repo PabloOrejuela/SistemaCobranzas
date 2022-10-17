@@ -154,4 +154,19 @@ class PagoModel extends Model {
             return $dataTable;
         }
     }
+
+    function _getSumaPago($idcartera){
+        //echo '<pre>'.var_export($data['date_hasta'], true).'</pre>';exit;
+        $builder = $this->db->table('pagos');
+        $builder->select('SUM(abono) as abonos');
+        $builder->where('idcartera', $idcartera);
+        $query = $builder->get();
+        //echo $this->db->getLastQuery();
+        if ($query->getResult() != null) {
+            foreach ($query->getResult() as $row) {
+                $abonos = $row->abonos;
+            }
+            return $abonos;
+        }
+    }
 }

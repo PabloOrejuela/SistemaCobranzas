@@ -273,7 +273,7 @@ class Reportes extends BaseController {
         $pdf->ln();
         $pdf->SetFont('helvetica', 'B', 8);
         $pdf->Cell(238, 0, 'MONTO: ', 'TLRB', 0, 'L', false);
-        $pdf->Cell(30, 0, '$ '.number_format($cliente->total, 2), 'TLRB', 0, 'R', false);
+        $pdf->Cell(30, 0, '$ '.number_format($cliente->saldo_fecha, 2), 'TLRB', 0, 'R', false);
         $pdf->ln();
         $pdf->Cell(268, 0, '', 'TLRB', 0, 'R', false);
 
@@ -308,7 +308,7 @@ class Reportes extends BaseController {
         $pdf->ln();
         $pdf->SetFont('helvetica', 'B', 9);
         $pdf->Cell(238, 0, 'SALDO PENDIENTE: ', 'TLRB', 0, 'R', false);
-        $pdf->Cell(30, 0, '$ '.number_format($cliente->total-$total, 2), 'TLRB', 0, 'R', false);
+        $pdf->Cell(30, 0, '$ '.number_format($cliente->saldo_fecha-$total, 2), 'TLRB', 0, 'R', false);
         
         //$pdf->writeHTML($html, true, false, true, false, '');
         $pdf->Output('reporte-cobros.pdf', 'I'); 
@@ -354,9 +354,9 @@ class Reportes extends BaseController {
         $pdf->ln(12);
         $pdf->SetFont('helvetica', 'B', 9);
         $pdf->Cell(7, 0, 'No.', 'TLRB', 0, 'L', true);
-        $pdf->Cell(100, 0, 'Cooperativa', 'TLRB', 0, 'C', true);
+        $pdf->Cell(90, 0, 'Cooperativa', 'TLRB', 0, 'C', true);
         $pdf->Cell(33, 0, 'Fecha', 'TLRB', 0, 'C', true);
-        $pdf->Cell(40, 0, 'Cobrador', 'TLRB', 0, 'C', true);
+        $pdf->Cell(48, 0, 'Cobrador', 'TLRB', 0, 'C', true);
         $pdf->Cell(90, 0, 'Observación', 'TLRB', 0, 'C', true);
         
         $n=1;
